@@ -3,6 +3,12 @@
 - Front-End : 이지혜(Project Manager), 정다인, 한지선
 - Back-End : 김현정(Product Manager), 김식, 김창현, 전민성, 조승연, 홍지수
 
+## Tools
+
+- FrontEnd : HTML, Tailwind, JavaScript, React
+- BackEnd : Node.JS, JavaScript, MySQL, Express.JS
+- 협업 Tool : Github, Trello, Slack, Discord, Notion, Creately, Zoom
+
 ## producting
 
 1.  팬데믹 때 얼어붙었던 엔터테인먼트 시장을 활성화 하자는 취지에서 문화 상품을 누구나 사고 팔 수 있는 플랫폼을 제공하고자 함
