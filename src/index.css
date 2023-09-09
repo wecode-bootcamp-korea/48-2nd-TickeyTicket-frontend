@@ -12,7 +12,32 @@
     @apply max-w-7xl m-auto;
   }
   .tag {
-    @apply text-white text-xs p-1 pl-2 pr-2 rounded-md;
+    @apply text-white text-xs p-1 pl-2 pr-2 rounded-md inline;
+  }
+  .pageNumBtn {
+    @apply text-center leading-7 border-[1px] border-[#b6bdc7] text-primary text-sm w-8 h-8;
+  }
+  .isActive {
+    @apply text-gray-800 border-gray-800 border-b-4;
+  }
+  .reviewSortItem {
+    @apply text-darkgray;
+  }
+  .isSort {
+    @apply font-bold text-primary;
+  }
+  /* calendar */
+  .react-datepicker {
+    @apply border-0 !important;
+  }
+  .react-datepicker__month-container {
+    @apply w-full !important;
+  }
+  .react-datepicker__header {
+    @apply border-0 bg-white !important;
+  }
+  .react-datepicker__day--selected {
+    @apply bg-brand !important;
   }
   .swiper-button-next {
     @apply bg-black !important;
@@ -35,6 +60,48 @@
       text-align: left;
       bottom: 30px;
       left: 40px;
+    }
+  }
+
+  .calendar {
+    .react-datepicker__day--selected {
+      background-color: #ff097f;
+    }
+
+    .react-datepicker__header {
+      background-color: #fff;
+      border-bottom: 0;
+      margin-top: -7px;
+    }
+    .react-datepicker__current-month {
+      margin-bottom: 8px;
+    }
+    .react-datepicker__day-names {
+      background-color: #f2f2f2;
+      border-radius: 20px;
+
+      .react-datepicker__day-name {
+        height: 1.2rem;
+        line-height: 1.2rem;
+      }
+    }
+  }
+  .reviewListWrap {
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4em 0;
+
+      .previous,
+      .next {
+        margin: 0 15px;
+      }
+      svg {
+        display: inline-block;
+        height: 2em;
+        width: 2em;
+      }
     }
   }
 }
