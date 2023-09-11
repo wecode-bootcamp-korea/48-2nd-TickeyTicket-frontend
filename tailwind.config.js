@@ -16,10 +16,10 @@ module.exports = {
       },
       colors: {
         brand: '#F96162',
-        backgroundImage: {
-          logo: `url('../public/assets/logo.png')`,
-          defaultUserImage: `url('../public/assets/userImage.png')`,
-        },
+      },
+      backgroundImage: {
+        logo: `url('../public/assets/logo.png')`,
+        defaultUserImage: `url('../public/assets/userImage.png')`,
       },
     },
     plugins: [],
