@@ -1,5 +1,4 @@
 import React from 'react';
-import { VscHeart, VscHeartFilled } from 'react-icons/vsc';
 
 const CardLong = () => {
   return (

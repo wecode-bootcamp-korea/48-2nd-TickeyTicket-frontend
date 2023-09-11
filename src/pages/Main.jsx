@@ -5,25 +5,17 @@ import MainBanner from '../components/Main/MainBanner';
 import Categories from '../components/Categories/Categories';
 import CardLong from '../components/Categories/CardLong';
 import EventCard from '../components/Categories/EventCard';
+import ButtonMap from '../components/Buttons/ButtonMap';
 
 const Main = () => {
   return (
     <div className="main">
       <div className="container">
         <div className="banner relative mt-6">
-          <div className="banners">
-            <div className="bannerSlideBox flex w-7xl h-22.5 //overflow-hidden">
-              <MainBanner />
-              <MainBanner />
-              <MainBanner />
+          <div className="bannerSlideBox flex w-7xl h-22.5 //overflow-hidden">
+            <div className="w-full h-full">
               <MainBanner />
             </div>
-          </div>
-          <div className="slideBarContainer absolute bottom-0 mb-8 ml-6 flex">
-            <div className="slideBar h-1 w-12 bg-white mr-1 ml-1 opacity-50" />
-            <div className="slideBar h-1 w-12 bg-white mr-1 ml-1 opacity-50" />
-            <div className="slideBar h-1 w-12 bg-white mr-1 ml-1 opacity-50" />
-            <div className="slideBar h-1 w-12 bg-white mr-1 ml-1 opacity-50" />
           </div>
         </div>
 
@@ -40,10 +32,6 @@ const Main = () => {
           <div className="cardContainer w-full h-80 overflow-hidden">
             <div className="cardSlideBox">
               <div className="cards flex gap-3">
-                <CardLong />
-                <CardLong />
-                <CardLong />
-                <CardLong />
                 <CardLong />
               </div>
             </div>
@@ -80,6 +68,7 @@ const Main = () => {
         <Categories />
         <Categories />
       </div>
+      {/* <ButtonMap /> */}
     </div>
   );
 };
