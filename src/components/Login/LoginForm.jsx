@@ -79,7 +79,7 @@ export default function LoginForm() {
             type="password"
           />
         </div>
-        <button className="my-5 w-full py-[14px] px-3 text-base h-min-[50px] bg-pink-600 border-pink-600 text-white rounded">
+        <button className="my-5 w-full py-[14px] px-3 text-base h-min-[50px] bg-brand border-brand text-white rounded">
           로그인
         </button>
         <section className="w-full text-center block">
