@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "url": "https://images.unsplash.com/photo-1506157786151-b8491531f063?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZmVzdGl2YWx8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
+    "text": "공연예약 바로가기",
+    "title": ["곧 시작하는", "임박공연"],
+    "categoryUrl": ""
+  },
+  {
+    "id": 2,
+    "url": "https://images.unsplash.com/photo-1607873893945-b5920ac228f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2832&q=80",
+    "text": "뮤지컬 예약 바로가기",
+    "title": ["가장 인기있는", "뮤지컬"],
+    "categoryUrl": ""
+  },
+  {
+    "id": 3,
+    "url": "https://images.unsplash.com/photo-1645403353367-856d4ae8dc33?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTN8fCVFQiVCMiU4NCVFQyU4QSVBNCVFRCU4MiVCOXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
+    "text": "공연정보 바로가기",
+    "title": ["남녀노소 누구나", "버스킹 공연"],
+    "categoryUrl": ""
+  },
+  {
+    "id": 4,
+    "url": "https://images.unsplash.com/photo-1566954979172-eaba308acdf0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2831&q=80",
+    "text": "전시예약 바로가기",
+    "title": ["감성을 자극하는", "무료 전시회"],
+    "categoryUrl": ""
+  }
+]

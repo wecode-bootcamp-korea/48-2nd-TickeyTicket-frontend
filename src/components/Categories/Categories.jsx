@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from './Card';
+import MainCard from './MainCard';
 
 const Categories = () => {
   return (
@@ -14,10 +14,10 @@ const Categories = () => {
         <div className="cardContainer w-full">
           <div className="cardSlideBox">
             <div className="cards flex gap-3">
-              <Card />
-              <Card />
-              <Card />
-              <Card />
+              <MainCard />
+              <MainCard />
+              <MainCard />
+              <MainCard />
             </div>
           </div>
         </div>
