@@ -1,7 +1,9 @@
-import React from 'react';
-import Card from './Card';
+import React, { useState } from 'react';
+import MainCard from './MainCard';
 
 const Categories = () => {
+  const [mainCardData, setMainCardData] = useState([]);
+
   return (
     <div className="categories">
       <div className="categories relative mt-24 mb-48">
@@ -14,10 +16,10 @@ const Categories = () => {
         <div className="cardContainer w-full">
           <div className="cardSlideBox">
             <div className="cards flex gap-3">
-              <Card />
-              <Card />
-              <Card />
-              <Card />
+              <MainCard />
+              <MainCard />
+              <MainCard />
+              <MainCard />
             </div>
           </div>
         </div>
