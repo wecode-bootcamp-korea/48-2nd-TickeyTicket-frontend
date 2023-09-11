@@ -15,7 +15,19 @@ module.exports = {
         m5rem: '-5rem',
       },
       colors: {
-        brand: '#F96162',
+        brand: '#FF097F',
+        primary: '#2F3438',
+        pink: '#FF5492',
+        babypink: '#FEF6FE',
+        darkgray: '#828282',
+        mediumgray: '#B6BDC7',
+        lightgray: '#DADDE0',
+      },
+      screens: {
+        xl: '1280px',
+      },
+      fontFamily: {
+        Pretendard: ['Pretendard'],
       },
       backgroundImage: {
         logo: `url('../public/assets/logo.png')`,
