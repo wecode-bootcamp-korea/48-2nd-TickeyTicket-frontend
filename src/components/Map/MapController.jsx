@@ -4,24 +4,29 @@ import { Tooltip } from 'react-tooltip';
 
 const MapController = ({ setMyLocation, myLocation }) => {
   const handleMyLocation = () => {
-    setMyLocation({
-      center: myLocation.center,
-      isPanto: true,
-    });
+    setMyLocation(prevLocation => ({
+      ...prevLocation,
+      center: {
+        lat: 33.450701,
+        lng: 126.570667,
+      },
+    }));
   };
   return (
     <>
       <ZoomControl />
-      <div className="mapController absolute w-[100%] h-[100%] left-0 top-0 z-10 overflow-hidden">
-        <button
-          type="button"
-          className="button absolute block top-[196px] right-[2px] w-[32px] h-[32px] bg-white rounded-[3px]"
-          onClick={handleMyLocation}
-        >
-          <Tooltip anchorSelect=".button" content="내위치" place="left" />
-          <MdOutlineMyLocation className="m-auto" />
-        </button>
-      </div>
+      <button
+        type="button"
+        className="buttonMyLocation absolute block top-[196px] right-[2px] w-[32px] h-[32px] bg-white rounded-[3px] z-10 shadow-md"
+        onClick={handleMyLocation}
+      >
+        <Tooltip
+          anchorSelect=".buttonMyLocation"
+          content="내위치"
+          place="left"
+        />
+        <MdOutlineMyLocation className="m-auto" />
+      </button>
     </>
   );
 };
