@@ -1,16 +1,25 @@
-import React from 'react';
 import { ZoomControl } from 'react-kakao-maps-sdk';
+import { MdOutlineMyLocation } from 'react-icons/md';
+import { Tooltip } from 'react-tooltip';
 
-const MapController = () => {
+const MapController = ({ setMyLocation, myLocation }) => {
+  const handleMyLocation = () => {
+    setMyLocation({
+      center: myLocation.center,
+      isPanto: true,
+    });
+  };
   return (
     <>
       <ZoomControl />
-      <div className="mapController absolute top-[196px] left-[1144px] w-[32px] h-[32px]">
+      <div className="mapController absolute w-[100%] h-[100%] left-0 top-0 z-10 overflow-hidden">
         <button
           type="button"
-          className="block w-full h-full p-[1px 3px 5px] bg-accessLocation bg-no-repeat bg-[length:490px_492px] bg-left-negative-150 bg-top-negative-450 indent-1"
+          className="button absolute block top-[196px] right-[2px] w-[32px] h-[32px] bg-white rounded-[3px]"
+          onClick={handleMyLocation}
         >
-          현위치
+          <Tooltip anchorSelect=".button" content="내위치" place="left" />
+          <MdOutlineMyLocation className="m-auto" />
         </button>
       </div>
     </>
