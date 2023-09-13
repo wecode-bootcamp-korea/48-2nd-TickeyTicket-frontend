@@ -32,7 +32,6 @@ module.exports = {
       backgroundImage: {
         logo: `url('../public/assets/logo.png')`,
         defaultUserImage: `url('../public/assets/userImage.png')`,
-        accessLocation: `url('//t1.daumcdn.net/localimg/localimages/07/2018/pc/common/img_search.png')`,
       },
     },
     plugins: [],

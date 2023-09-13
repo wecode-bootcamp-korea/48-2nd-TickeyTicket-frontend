@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const ButtonMap = () => {
   const navigate = useNavigate();
   return (
-    <div className="buttonMap fixed top-0 w-full h-[100vh]">
+    <div className="buttonMap fixed bottom-0 w-full h-auto">
       <button
         type="button"
         className="absolute bottom-[40px] left-2/4 -translate-x-1/2 w-32 h-10 rounded-[20px] bg-brand text-white text-base leading-10"
