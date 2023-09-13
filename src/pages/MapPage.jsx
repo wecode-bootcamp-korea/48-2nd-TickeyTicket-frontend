@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, Component } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
 import Loading from '../components/Loading/Loading';
 import MapController from '../components/Map/MapController';
@@ -8,7 +8,7 @@ const MapPage = () => {
   const myRef = useRef(null);
   const [level, setLevel] = useState(3);
   const [loading, setLoading] = useState(true);
-
+  const [isVisible, setIsVisible] = useState(false);
   const [myLocation, setMyLocation] = useState({
     center: {
       lat: 33.450701,
@@ -55,7 +55,7 @@ const MapPage = () => {
       }));
       setLoading(false);
     }
-  }, [myLocation]);
+  }, []);
 
   useEffect(() => {
     if (myRef.current) {
@@ -89,7 +89,10 @@ const MapPage = () => {
             <EventMarker
               key={`EventMarker-${value.latlng.lat}-${value.latlng.lng}`}
               position={value.latlng}
-              product={value.product_id}
+              data={value}
+              setIsVisible={setIsVisible}
+              isVisible={value.id === isVisible}
+              myLocation={myLocation}
             />
           ))}
         </Map>
