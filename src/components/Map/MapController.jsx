@@ -1,3 +1,4 @@
+import React from 'react';
 import { ZoomControl } from 'react-kakao-maps-sdk';
 import { MdOutlineMyLocation } from 'react-icons/md';
 import { Tooltip } from 'react-tooltip';

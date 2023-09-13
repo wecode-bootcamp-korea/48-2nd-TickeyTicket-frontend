@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, Component } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
 import Loading from '../components/Loading/Loading';
 import MapController from '../components/Map/MapController';
+import EventMarker from '../components/Map/EventMarker';
 
 const MapPage = () => {
+  const myRef = useRef(null);
   const [level, setLevel] = useState(3);
   const [loading, setLoading] = useState(true);
 
@@ -15,7 +17,16 @@ const MapPage = () => {
     errMsg: null,
   });
 
+  const [markersArray, setMarkersArray] = useState([]);
+
   useEffect(() => {
+    fetch('http://localhost:3000/data/mapMarkerData.json', {
+      method: 'GET',
+    })
+      .then(res => res.json())
+      .then(data => {
+        setMarkersArray(data);
+      });
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {
@@ -45,8 +56,18 @@ const MapPage = () => {
       setLoading(false);
     }
   }, [myLocation]);
+
+  useEffect(() => {
+    if (myRef.current) {
+      window.scrollTo({
+        top: myRef.current.offsetTop,
+        behavior: 'smooth',
+      });
+    }
+  }, []);
+
   return (
-    <div className="mapPage relative w-full h-[calc(100vh_-_141px)]">
+    <div className="mapPage relative w-full h-[100vh]" ref={myRef}>
       {loading ? ( // 로딩 중인 동안 로딩 화면 표시
         <Loading />
       ) : (
@@ -56,7 +77,7 @@ const MapPage = () => {
           level={3}
           style={{
             width: '100%',
-            height: '100%',
+            height: '100vh',
           }}
           onZoomChanged={map => setLevel(map.getLevel())}
         >
@@ -64,6 +85,13 @@ const MapPage = () => {
             setMyLocation={setMyLocation}
             myLocation={myLocation}
           />
+          {markersArray.map(value => (
+            <EventMarker
+              key={`EventMarker-${value.latlng.lat}-${value.latlng.lng}`}
+              position={value.latlng}
+              product={value.product_id}
+            />
+          ))}
         </Map>
       )}
     </div>
