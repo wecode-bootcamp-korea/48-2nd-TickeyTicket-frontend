@@ -8,10 +8,15 @@ import MapPage from './pages/MapPage';
 import MyPage from './pages/MyPage';
 import Payment from './pages/Payment';
 import SignUp from './pages/SignUp';
+import Header from './components/Layout/Header';
+import Footer from './components/Layout/Footer';
+import Nav from './components/Layout/Nav';
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <Header />
+      <Nav />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
@@ -20,7 +25,9 @@ const Router = () => {
         <Route path="/map" element={<MapPage />} />
         <Route path="/detail" element={<Detail />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/mypage" element={<MyPage />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };

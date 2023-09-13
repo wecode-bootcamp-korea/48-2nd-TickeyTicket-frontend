@@ -55,7 +55,7 @@ const Main = () => {
         <Categories />
         <Categories />
       </div>
-      {/* <ButtonMap /> */}
+      <ButtonMap />
     </div>
   );
 };
