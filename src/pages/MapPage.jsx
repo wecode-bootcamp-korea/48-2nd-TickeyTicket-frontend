@@ -4,7 +4,7 @@ import Loading from '../components/Loading/Loading';
 import MapController from '../components/Map/MapController';
 
 const MapPage = () => {
-  const [level, setLevel] = useState();
+  const [level, setLevel] = useState(3);
   const [loading, setLoading] = useState(true);
 
   const [myLocation, setMyLocation] = useState({
@@ -44,15 +44,7 @@ const MapPage = () => {
       }));
       setLoading(false);
     }
-  }, []);
-
-  const handleMapCenterChange = newCenter => {
-    setMyLocation(prev => ({
-      ...prev,
-      center: newCenter,
-    }));
-  };
-
+  }, [myLocation]);
   return (
     <div className="mapPage relative w-full h-[calc(100vh_-_141px)]">
       {loading ? ( // 로딩 중인 동안 로딩 화면 표시
@@ -69,7 +61,7 @@ const MapPage = () => {
           onZoomChanged={map => setLevel(map.getLevel())}
         >
           <MapController
-            setMyLocation={handleMapCenterChange}
+            setMyLocation={setMyLocation}
             myLocation={myLocation}
           />
         </Map>
