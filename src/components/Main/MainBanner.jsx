@@ -1,5 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import axios from 'axios';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -9,27 +10,16 @@ const MainBanner = () => {
   const [bannerData, setBannerData] = useState([]);
 
   useEffect(() => {
-    fetch('/data/mainBanner.json', {
-      method: 'GET',
-    })
-      .then(res => res.json())
-      .then(data => {
-        setBannerData(data);
-      });
+    axios.get('/data/mainBanner.json').then(response => {
+      setBannerData(response.data);
+    });
   }, []);
 
   return (
     <Swiper
-      style={{
-        '--swiper-pagination-bullet-width': '2.5rem',
-        '--swiper-pagination-bullet-horizontal-gap': '6px',
-        '--swiper-pagination-bullet-border-radius': '10px',
-        '--swiper-pagination-bullet-inactive-color': '#fff',
-        '--swiper-pagination-bullet-inactive-opacity': '0.5',
-        '--swiper-pagination-color': '#FF097F',
-      }}
+      className="mySwiper w-full h-full"
       spaceBetween={30}
-      centeredSlides={true}
+      modules={[Autoplay, Pagination]}
       autoplay={{
         delay: 3000,
         disableOnInteraction: false,
@@ -37,9 +27,18 @@ const MainBanner = () => {
       pagination={{
         clickable: true,
       }}
-      modules={[Autoplay, Pagination]}
-      loop={true}
-      className="mySwiper w-full h-full"
+      centeredSlides
+      loop
+      style={{
+        '--swiper-pagination-bullet-width': '2.5rem',
+        '--swiper-pagination-bullet-horizontal-gap': '6px',
+        '--swiper-pagination-bullet-border-radius': '10px',
+        '--swiper-pagination-bullet-inactive-color': '#fff',
+        '--swiper-pagination-bullet-inactive-opacity': '0.5',
+        '--swiper-pagination-color': '#ff097f',
+        '--swiper-pagination-bullet-opacity': '0.7',
+        '--swiper-pagination-cursor': 'pointer',
+      }}
     >
       {bannerData.map(data => (
         <SwiperSlide

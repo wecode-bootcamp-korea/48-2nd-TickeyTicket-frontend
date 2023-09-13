@@ -14,4 +14,27 @@
   .tag {
     @apply text-white text-xs p-1 pl-2 pr-2 rounded-md;
   }
+  .swiper-button-next {
+    @apply bg-black !important;
+  }
+
+  .cardSlideBox {
+    .swiper-button-next {
+      color: #ff097f;
+      font-weight: bold;
+      top: 45%;
+    }
+    .swiper-button-prev {
+      color: #ff097f;
+      font-weight: bold;
+      top: 45%;
+    }
+  }
+  .bannerSlideBox {
+    .swiper-pagination {
+      text-align: left;
+      bottom: 30px;
+      left: 40px;
+    }
+  }
 }

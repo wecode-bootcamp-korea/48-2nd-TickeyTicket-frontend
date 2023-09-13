@@ -1,11 +1,10 @@
 import React from 'react';
-import { HiOutlineChevronLeft, HiOutlineChevronRight } from 'react-icons/hi';
 import { FaAngleRight } from 'react-icons/fa';
 import MainBanner from '../components/Main/MainBanner';
 import Categories from '../components/Categories/Categories';
-import CardLong from '../components/Categories/CardLong';
 import EventCard from '../components/Categories/EventCard';
-import ButtonMap from '../components/Buttons/ButtonMap';
+import BenefitCard from '../components/Categories/BenefitCard';
+import ButtonMap from '../components/Map/ButtonMap';
 
 const Main = () => {
   return (
@@ -20,10 +19,6 @@ const Main = () => {
         </div>
 
         <div className="categories relative mt-24 ">
-          <div className="cardBtn absolute top-56 flex justify-between w-112.5% m-m5rem text-brand">
-            <HiOutlineChevronLeft className="w-16 h-16 cursor-pointer" />
-            <HiOutlineChevronRight className="w-16 h-16 cursor-pointer" />
-          </div>
           <div className="categoryHeader flex justify-between mb-6">
             <div className="cardTitle text-2xl font-bold">
               주목할 만한 이벤트
@@ -31,9 +26,7 @@ const Main = () => {
           </div>
           <div className="cardContainer w-full h-80 overflow-hidden">
             <div className="cardSlideBox">
-              <div className="cards flex gap-3">
-                <CardLong />
-              </div>
+              <EventCard />
             </div>
           </div>
         </div>
@@ -41,7 +34,7 @@ const Main = () => {
         <Categories />
         <Categories />
 
-        <div className="event w-full mt-14 mb-14 border-y-2 pt-24 pb-24">
+        <div className="event w-full mb-14 border-y-2 pt-24 pb-24">
           <div className="eventContainer flex">
             <div className="eventLeft w-2/5 pt-5 flex-col text-center ">
               <div className="eventLeftTitle text-4xl leading-normal mb-12">
@@ -57,18 +50,13 @@ const Main = () => {
                 </div>
               </button>
             </div>
-            <div className="eventRight flex w-3/5 pl-20 gap-14">
-              <EventCard />
-              <EventCard />
-              <EventCard />
-            </div>
+            <BenefitCard />
           </div>
         </div>
-
         <Categories />
         <Categories />
       </div>
-      {/* <ButtonMap /> */}
+      <ButtonMap />
     </div>
   );
 };

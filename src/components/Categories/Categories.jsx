@@ -11,12 +11,9 @@ const Categories = () => {
             더 보기
           </button>
         </div>
-        <div className="cardContainer w-full">
-          <div className="cardSlideBox">
+        <div className="cardContainer w-full h-full">
+          <div className="cardSlideBox h-80 overflow-hidden">
             <div className="cards flex gap-3">
-              <MainCard />
-              <MainCard />
-              <MainCard />
               <MainCard />
             </div>
           </div>
