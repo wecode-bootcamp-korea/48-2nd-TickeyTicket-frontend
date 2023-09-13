@@ -1,18 +1,24 @@
-import React from 'react';
-import { ZoomControl } from 'react-kakao-maps-sdk';
+import React, { useEffect } from 'react';
+import { ZoomControl, useMap } from 'react-kakao-maps-sdk';
 import { MdOutlineMyLocation } from 'react-icons/md';
 import { Tooltip } from 'react-tooltip';
 
 const MapController = ({ setMyLocation, myLocation }) => {
-  const handleMyLocation = () => {
-    setMyLocation(prevLocation => ({
-      ...prevLocation,
-      center: {
-        lat: 33.450701,
-        lng: 126.570667,
+  const map = useMap();
+
+  const handleMyLocation = e => {
+    e.preventDefault();
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude } = position.coords;
+        map.setCenter(new window.kakao.maps.LatLng(latitude, longitude));
       },
-    }));
+      error => {
+        console.error('내 위치를 가져오는 데 실패했습니다.', error);
+      },
+    );
   };
+
   return (
     <>
       <ZoomControl />
