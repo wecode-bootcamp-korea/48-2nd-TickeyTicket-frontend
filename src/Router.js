@@ -11,6 +11,7 @@ import SignUp from './pages/SignUp';
 import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
 import Nav from './components/Layout/Nav';
+import PostForm from './pages/PostForm';
 
 const Router = () => {
   return (
@@ -26,6 +27,7 @@ const Router = () => {
         <Route path="/detail" element={<Detail />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/postform" element={<PostForm />} />
       </Routes>
       <Footer />
     </BrowserRouter>
