@@ -1,7 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 import {
-  emailFirstRegex,
-  emailLastRegex,
+  emailRegex,
   nameRegex,
   nicknameRegex,
   numRegex,
@@ -12,8 +11,7 @@ const useAuth = () => {
   const [name, setName] = useState('');
   const [nickname, setNickname] = useState('');
   const [number, setNumber] = useState('');
-  const [emailFirst, setEmailFirst] = useState('');
-  const [emailLast, setEmailLast] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   // 에러 state 대신 값 자체로 만들기
@@ -26,7 +24,7 @@ const useAuth = () => {
   const nicknameRef = useRef(null);
   const numberRef = useRef(null);
   const nameRef = useRef(null);
-  const emailFirstRef = useRef(null);
+  const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const confirmPasswordRef = useRef(null);
 
@@ -46,13 +44,8 @@ const useAuth = () => {
   };
 
   // 이메일 앞부분 입력받는 함수
-  const changeFirstEmail = event => {
-    setEmailFirst(event.target.value);
-  };
-
-  // 이메일 도메인 입력받는 함수
-  const changeLastEmail = event => {
-    setEmailLast(event.target.value);
+  const changeEmail = event => {
+    setEmail(event.target.value);
   };
 
   // 비밀번호 입력받는 함수
@@ -131,22 +124,16 @@ const useAuth = () => {
 
   // 이메일 유효성 검사하는 함수
   const checkEmailValidation = () => {
-    const checkEmailFirstValidation = emailFirst.match(emailFirstRegex);
-    const checkEmailLastValidation = emailLast.match(emailLastRegex);
+    const checkEmailValidation = email.match(emailRegex);
 
-    if (
-      !emailFirst ||
-      !emailLast ||
-      !checkEmailFirstValidation ||
-      checkEmailLastValidation
-    ) {
-      if (!emailFirst || !emailLast) {
+    if (!email || !checkEmailValidation) {
+      if (!email) {
         setEmailError('이메일을 입력해주세요.');
-        emailFirstRef?.current?.focus();
+        emailRef?.current?.focus();
         return false;
       } else {
         setEmailError('이메일 형식을 맞게 입력해주세요.');
-        emailFirstRef?.current?.focus();
+        emailRef?.current?.focus();
         return false;
       }
     } else {
@@ -200,10 +187,8 @@ const useAuth = () => {
     setNickname,
     number,
     setNumber,
-    emailFirst,
-    setEmailFirst,
-    emailLast,
-    setEmailLast,
+    email,
+    setEmail,
     password,
     setPassword,
     numberError,
@@ -220,15 +205,14 @@ const useAuth = () => {
     setConfirmPassword,
     nameRef,
     numberRef,
-    emailFirstRef,
+    emailRef,
     passwordRef,
     confirmPasswordRef,
     nicknameRef,
     changeName,
     changeNickname,
     changeNumber,
-    changeFirstEmail,
-    changeLastEmail,
+    changeEmail,
     changePassword,
     changeConfirmPassword,
     checkNameValidation,
