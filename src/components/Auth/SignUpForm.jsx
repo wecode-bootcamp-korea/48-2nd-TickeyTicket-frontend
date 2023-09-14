@@ -3,58 +3,59 @@ import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import SocialLogin from './SocialLogin';
 import InputBox from '../SignUp/InputBox';
+import axios from 'axios';
 
 export default function SignUpForm() {
   const auth = useAuth();
   const navigate = useNavigate();
   const name = auth.name;
+  const email = auth.email;
   const nickname = auth.nickname;
   const password = auth.password;
 
   const submitSignUp = event => {
     event.preventDefault();
 
-    // 이름 유효성 검사 확인
-    if (!auth.checkNameValidation()) return;
+    // // 이름 유효성 검사 확인
+    // if (!auth.checkNameValidation()) return;
 
-    // 닉네임 유효성 검사 확인
-    if (!auth.checkNicknameVaildation()) return;
+    // // 닉네임 유효성 검사 확인
+    // if (!auth.checkNicknameVaildation()) return;
 
-    // 전화번호 유효성 검사 확인
-    if (!auth.checkNumberValidation()) return;
+    // // 전화번호 유효성 검사 확인
+    // if (!auth.checkNumberValidation()) return;
 
-    // 이메일 유효성 검사 확인
-    if (!auth.checkEmailValidation()) return;
+    // // 이메일 유효성 검사 확인
+    // if (!auth.checkEmailValidation()) return;
 
-    // 비밀번호 유효성 검사 확인
-    if (!auth.checkPasswordValidation()) return;
+    // // 비밀번호 유효성 검사 확인
+    // if (!auth.checkPasswordValidation()) return;
 
-    // 비밀번호 일치여부 확인
-    if (!auth.checkValidationForSignUp()) return;
+    // // 비밀번호 일치여부 확인
+    // if (!auth.checkValidationForSignUp()) return;
 
     // 로그인 인증상태를 브라우저 세션 동안 유지하도록 하고 성공 시 넘어감
-    //   .then(() =>
-    //     유저의 이메일와 패스워드를 저장하여 사용자 계정 생성( auth.email, auth.password),
-    //   )
-    //   .then(() => {
-    //     alert(
-    //       '회원가입이 완료 되었습니다.',
-    //     );
-    //     auth.setEmail('');
-    //     auth.setPassword('');
-    //     auth.setConfirmPassword('');
-    //     // 사용자가 입력하고 나면 입력한 데이터를 초기화 하여 보안상의 이유로 민감한 정보를 계속 메모리에 보관하지 않도록 함
-
-    //     navigate('/');
-    //   })
-    //   .catch(err => {
-    //     if (err.message.includes('already-in-use')) {
-    //       alert('이미 가입된 계정입니다.');
-    //       auth.setEmail('');
-    //       auth.setPassword('');
-    //       auth.setConfirmPassword('');
-    //     }
-    //   });
+    axios
+      .post('http://127.0.0.1:3000/user-router/signup', {
+        user_name: name,
+        nickname: nickname,
+        email: email,
+        password: password,
+      })
+      .then(res => res)
+      .then(data => {
+        if (data.message === 'user is created') {
+          alert('회원가입이 완료 되었습니다.');
+          navigate('/');
+          auth.setEmail('');
+          auth.setPassword('');
+          auth.setConfirmPassword('');
+          // 사용자가 입력하고 나면 입력한 데이터를 초기화 하여 보안상의 이유로 민감한 정보를 계속 메모리에 보관하지 않도록 함
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   return (
@@ -86,7 +87,7 @@ export default function SignUpForm() {
             valueText={auth.nickname}
             onChangeFunction={event => {
               auth.changeNickname(event);
-              auth.checkNicknameVaildation();
+              auth.checkNicknameVaildation(event.target.value);
             }}
             valueRefText={auth.nicknameRef}
             authText={nickname}
@@ -143,44 +144,20 @@ export default function SignUpForm() {
               휴대전화 인증하기
             </button>
           </div>
-          <div className="">
-            <label className="block mb-3 text-base font-bold natural-800">
-              이메일
-            </label>
-            <div>
-              <div className="flex">
-                <span className="relative flex-1">
-                  <label>
-                    <input
-                      className="py-2 px-4 block w-full box-border text-sm border border-gray-300 rounded"
-                      type="text"
-                      placeholder="이메일"
-                      id="email"
-                      value={auth.emailFirst}
-                      onChange={auth.changeNumber}
-                      valueRef={auth.confirmPasswordRef}
-                    />
-                  </label>
-                </span>
-                <span className="flex-[0_0_6%] leading-9 text-center text-neutral-300">
-                  @
-                </span>
-                <span className="relative flex-1">
-                  <label>
-                    <input
-                      className="py-2 px-4 block w-full box-border text-sm border border-gray-300 rounded"
-                      type="text"
-                      placeholder="이메일"
-                      id="email"
-                      value={auth.emailFirst}
-                      onChange={auth.changeNumber}
-                      valueRef={auth.confirmPasswordRef}
-                    />
-                  </label>
-                </span>
-              </div>
-            </div>
-          </div>
+          <InputBox
+            title="이메일"
+            description=""
+            typeText="email"
+            placeholderText="이메일"
+            valueText={auth.email}
+            onChangeFunction={event => {
+              auth.changeEmail(event);
+              auth.checkEmailValidation();
+            }}
+            valueRefText={auth.emailRef}
+            authText={email}
+            ErrorText={auth.emailError}
+          />
           <div className="mt-1 mb-8">
             <button className="mt-2.5 w-full h-12 bg-gray-100 font-bold box-border text-sm border border-gray-300 rounded text-zinc-400">
               이메일 인증하기

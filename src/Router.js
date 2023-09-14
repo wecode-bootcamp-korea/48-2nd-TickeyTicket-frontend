@@ -12,6 +12,7 @@ import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
 import Nav from './components/Layout/Nav';
 import PostForm from './pages/PostForm';
+import KaKaoLogin from './pages/KaKaoLogin';
 
 const Router = () => {
   return (
@@ -28,6 +29,7 @@ const Router = () => {
         <Route path="/payment" element={<Payment />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/postform" element={<PostForm />} />
+        <Route path="/kakaologin" element={<KaKaoLogin />} />
       </Routes>
       <Footer />
     </BrowserRouter>

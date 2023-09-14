@@ -1,5 +1,5 @@
-export const emailFirstRegex = /^[\w-]$/g;
-export const emailLastRegex = /^[\w.]{2,6}$/g;
+export const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+
 export const passwordRegex =
   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&()._-])[A-Za-z\d$@$!%*#?&()._-]{8,}$/;
 
