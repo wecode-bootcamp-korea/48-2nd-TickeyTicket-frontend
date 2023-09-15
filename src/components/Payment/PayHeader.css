@@ -1,0 +1,22 @@
+.payHeader polyline {
+  stroke: #fff;
+}
+.payHeader polyline {
+  stroke: currentColor;
+}
+
+.payHeader currentColor {
+  vertical-align: text-bottom;
+}
+
+.payHeader .prev:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  width: 1px;
+  height: 14px;
+  background-color: white;
+  margin-left: 16px;
+}
