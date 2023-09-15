@@ -8,26 +8,32 @@ const EventMarker = ({ position, data, setIsVisible, isVisible }) => {
   const map = useMap();
   // const [isVisible, setIsVisible] = useState(false);
   const [mainCardData, setMainCardData] = useState([]);
-  const [matchedMarker, setMatchedMarker] = useState({});
+  //const [matchedMarker, setMatchedMarker] = useState({});
 
   const handleMarkerClick = marker => {
     map.panTo(marker.getPosition());
-    setIsVisible(data.id);
+    setIsVisible(data.productId);
   };
 
   useEffect(() => {
-    axios.get('/data/mainCard.json').then(response => {
+    axios.get('/data/mapMarkerData.json').then(response => {
       setMainCardData(response.data);
     });
-  }, []);
-
-  useEffect(() => {
-    setMatchedMarker(mainCardData.find(el => el.id === data.product_id));
   }, [mainCardData]);
 
+  // useEffect(() => {
+  //   axios.get('/data/mapMarkerData.json').then(response => {
+  //     setMainCardData(response.data);
+  //   });
+  // }, []);
+
+  // useEffect(() => {
+  //   setMatchedMarker(mainCardData.find(el => el.id === data.product_id));
+  // }, [mainCardData]);
+
   const isToggled = () => {
-    axios.post('/data/mainCard.json').then(() => {
-      axios.get('/data/mainCard.json').then(response => {
+    axios.post('/data/mapMarkerData.json').then(() => {
+      axios.get('/data/mapMarkerData.json').then(response => {
         setMainCardData(response.data);
       });
     });
@@ -65,7 +71,7 @@ const EventMarker = ({ position, data, setIsVisible, isVisible }) => {
       />
       {isVisible && (
         <CustomOverlayMap position={position} yAnchor={1.2}>
-          <MapCard data={matchedMarker} isToggled={isToggled} />
+          <MapCard data={data} isToggled={isToggled} />
         </CustomOverlayMap>
       )}
     </>
