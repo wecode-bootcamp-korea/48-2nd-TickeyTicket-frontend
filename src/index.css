@@ -9,7 +9,7 @@
 
 @layer components {
   .container {
-    @apply max-w-7xl m-auto;
+    @apply max-w-[1256px] m-auto;
   }
   .tag {
     @apply text-white text-xs p-1 pl-2 pr-2 rounded-md inline;
