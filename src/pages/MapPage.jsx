@@ -20,7 +20,7 @@ const MapPage = () => {
   const [markersArray, setMarkersArray] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/data/mapMarkerData.json', {
+    fetch('/data/mapMarkerData.json', {
       method: 'GET',
     })
       .then(res => res.json())
@@ -91,7 +91,7 @@ const MapPage = () => {
               position={value.latlng}
               data={value}
               setIsVisible={setIsVisible}
-              isVisible={value.id === isVisible}
+              isVisible={value.productId === isVisible}
               myLocation={myLocation}
             />
           ))}

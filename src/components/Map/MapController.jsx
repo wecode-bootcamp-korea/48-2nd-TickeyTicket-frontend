@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
 import { ZoomControl, useMap } from 'react-kakao-maps-sdk';
 import { MdOutlineMyLocation } from 'react-icons/md';
 import { Tooltip } from 'react-tooltip';
 
-const MapController = ({ setMyLocation, myLocation }) => {
+const MapController = () => {
   const map = useMap();
 
   const handleMyLocation = e => {
