@@ -9,7 +9,7 @@
         "performPlace": "충무아트센터 대극장",
         "startDate": "2023-10-09T15:00:00.00Z",
         "endDate": "2023-10-11T15:00:00.00Z",
-        "StartTime": "17:00:00",
+        "startTime": "17:00:00",
         "runningTime": "02:00:00",
         "price": 130000,
         "performersInfo": [
@@ -39,17 +39,17 @@
             "performerName": "박강현"
           }
         ],
-        "productDescription": ""
+        "productDescription": "dfdfdafdfadfadf"
       }
     ],
     "allReviews": [
       {
         "userId": 2,
-        "writtenDate": "2023-10-1",
+        "writtenDate": "2023-10-01",
         "nickname": "adklfjdlk",
         "title": "재미와 감동을 주는 뮤지컬!",
         "content": "보는 내내 즐겁고 몰입이 잘 되었어요~ 다시 한 번 더 보고 싶은 작품입니다!!",
-        "rating": "4"
+        "rating": 4
       },
       {
         "userId": 2,
@@ -57,23 +57,23 @@
         "nickname": "adklfjdlk",
         "title": "재미와 감동을 주는 뮤지컬!",
         "content": "보는 내내 즐겁고 몰입이 잘 되었어요~ 다시 한 번 더 보고 싶은 작품입니다!!",
-        "rating": "3"
+        "rating": 3
       },
       {
         "userId": 2,
-        "writtenDate": "2023-10-3",
+        "writtenDate": "2023-10-03",
         "nickname": "adklfjdlk",
         "title": "재미와 감동을 주는 뮤지컬!",
         "content": "보는 내내 즐겁고 몰입이 잘 되었어요~ 다시 한 번 더 보고 싶은 작품입니다!!",
-        "rating": "2"
+        "rating": 2
       },
       {
         "userId": 2,
-        "writtenDate": "2023-10-2",
+        "writtenDate": "2023-10-22",
         "nickname": "adklfjdlk",
         "title": "재미와 감동을 주는 뮤지컬!",
         "content": "보는 내내 즐겁고 몰입이 잘 되었어요~ 다시 한 번 더 보고 싶은 작품입니다!!",
-        "rating": "5"
+        "rating": 5
       },
       {
         "userId": 2,
@@ -81,7 +81,63 @@
         "nickname": "adklfjdlk",
         "title": "재미와 감동을 주는 뮤지컬!",
         "content": "보는 내내 즐겁고 몰입이 잘 되었어요~ 다시 한 번 더 보고 싶은 작품입니다!!",
-        "rating": "1"
+        "rating": 1
+      },
+      {
+        "userId": 2,
+        "writtenDate": "2023-09-21",
+        "nickname": "adklfjdlk",
+        "title": "재미와 감동을 주는 뮤지컬!",
+        "content": "보는 내내 즐겁고 몰입이 잘 되었어요~ 다시 한 번 더 보고 싶은 작품입니다!!",
+        "rating": 5
+      },
+      {
+        "userId": 2,
+        "writtenDate": "2023-09-13",
+        "nickname": "adklfjdlk",
+        "title": "재미와 감동을 주는 뮤지컬!",
+        "content": "보는 내내 즐겁고 몰입이 잘 되었어요~ 다시 한 번 더 보고 싶은 작품입니다!!",
+        "rating": 4
+      },
+      {
+        "userId": 2,
+        "writtenDate": "2023-09-05",
+        "nickname": "adklfjdlk",
+        "title": "재미와 감동을 주는 뮤지컬!",
+        "content": "보는 내내 즐겁고 몰입이 잘 되었어요~ 다시 한 번 더 보고 싶은 작품입니다!!",
+        "rating": 3
+      },
+      {
+        "userId": 2,
+        "writtenDate": "2023-08-21",
+        "nickname": "adklfjdlk",
+        "title": "재미와 감동을 주는 뮤지컬!",
+        "content": "보는 내내 즐겁고 몰입이 잘 되었어요~ 다시 한 번 더 보고 싶은 작품입니다!!",
+        "rating": 2
+      },
+      {
+        "userId": 2,
+        "writtenDate": "2023-08-22",
+        "nickname": "adklfjdlk",
+        "title": "재미와 감동을 주는 뮤지컬!",
+        "content": "보는 내내 즐겁고 몰입이 잘 되었어요~ 다시 한 번 더 보고 싶은 작품입니다!!",
+        "rating": "5"
+      },
+      {
+        "userId": 2,
+        "writtenDate": "2023-08-12",
+        "nickname": "adklfjdlk",
+        "title": "재미와 감동을 주는 뮤지컬!",
+        "content": "보는 내내 즐겁고 몰입이 잘 되었어요~ 다시 한 번 더 보고 싶은 작품입니다!!",
+        "rating": 1
+      },
+      {
+        "userId": 2,
+        "writtenDate": "2023-10-05",
+        "nickname": "adklfjdlk",
+        "title": "재미와 감동을 주는 뮤지컬!",
+        "content": "보는 내내 즐겁고 몰입이 잘 되었어요~ 다시 한 번 더 보고 싶은 작품입니다!!",
+        "rating": 5
       }
     ]
   }
