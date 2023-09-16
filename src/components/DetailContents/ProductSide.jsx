@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Calendar from './Calendar';
 
 const ProductSide = () => {
   return (
     <div className="productSide container fixed top-20 m-auto w-full">
-      <div className="side absolute top-20 right-0 bg-white rounded-lg z-10">
+      <div className="side absolute top-20 left-[1000px] bg-white rounded-lg z-10">
         <div>
           <div className="sideMain flex-col border-mediumgray border-[1px] rounded-lg">
             <div className="sideContainer border-mediumgray border-b-[1px] p-3">
