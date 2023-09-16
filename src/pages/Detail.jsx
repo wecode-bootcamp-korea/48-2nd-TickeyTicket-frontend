@@ -7,7 +7,8 @@ import axios from 'axios';
 
 const Detail = () => {
   const [activeNavIndex, setActiveNavIndex] = useState(0);
-  const [detailData, setDetailData] = useState([]);
+  const [detailData, setDetailData] = useState({});
+  const [reviewData, setReviewData] = useState([]);
   const navData = ['공연정보', '판매정보', '관람후기', '기대평', 'Q&A'];
 
   const handleClick = index => {
@@ -17,26 +18,32 @@ const Detail = () => {
   useEffect(() => {
     axios
       .get('/data/detailData.json')
-      .then(response => setDetailData(response.data));
-  });
-  const allDetails = detailData.allDetails;
-  const allReviews = detailData.allReviews;
+      .then(response => {
+        setDetailData(response.data.allDetails[0]);
+        setReviewData(response.data.allReviews);
+      })
+      .catch(error => {
+        console.error('error fetching data', error);
+      });
+  }, []);
+  console.log('디테일데이터', detailData);
+  console.log('리뷰데이터', reviewData);
 
   return (
     <div className="detail">
       <div className="container relative">
         <div className="productMain relative bg-white w-[53rem] mt-8 mb-[9rem]">
           <ProductMainTop
-            key={allDetails.id}
-            name={allDetails.name}
-            generName={allDetails.generName}
-            thumbnailImageUrl={allDetails.thumbnailImageUrl}
-            performPlace={allDetails.performPlace}
-            startDate={allDetails.startDate}
-            endDate={allDetails.endDate}
-            startTime={allDetails.startTime}
-            runningTime={allDetails.runningTime}
-            price={allDetails.price}
+            key={detailData.id}
+            name={detailData.name}
+            generName={detailData.generName}
+            thumbnailImageUrl={detailData.thumbnailImageUrl}
+            performPlace={detailData.performPlace}
+            startDate={detailData.startDate}
+            endDate={detailData.endDate}
+            startTime={detailData.startTime}
+            runningTime={detailData.runningTime}
+            price={detailData.price}
           />
           <div className="productMainBody">
             <div className="productNav pt-4 mb-10 sticky top-0 bg-white">
@@ -56,18 +63,18 @@ const Detail = () => {
             </div>
             {activeNavIndex === 0 && (
               <ProductContents
-                performersInfo={allDetails.performersInfo}
-                productDescription={allDetails.productDescription}
+                performersInfo={detailData.performersInfo}
+                productDescription={detailData.productDescription}
               />
             )}
             {activeNavIndex === 1 && <ProductContents />}
             {activeNavIndex === 2 && (
               <ProductReview
-                writtenDate={allReviews.writtenDate}
-                nickname={allReviews.nickname}
-                title={allReviews.title}
-                content={allReviews.content}
-                rating={allReviews.rating}
+                writtenDate={reviewData.writtenDate}
+                nickname={reviewData.nickname}
+                title={reviewData.title}
+                content={reviewData.content}
+                rating={reviewData.rating}
               />
             )}
             {activeNavIndex === 3 && <ProductReview />}
