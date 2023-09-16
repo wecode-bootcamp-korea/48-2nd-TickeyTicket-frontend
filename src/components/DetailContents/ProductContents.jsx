@@ -6,7 +6,7 @@ const ProductContents = ({ performersInfo, productDescription }) => {
       <div className="content mb-32 casting">
         <h1 className="contentTitle font-bold text-xl">캐스팅</h1>
         <div className="castingWrap mt-12">
-          <ul className="castingList flex flex-wrap gap-10 ">
+          {/* <ul className="castingList flex flex-wrap gap-10 ">
             {performersInfo.map(data => (
               <li className="castingItem" key={data.actorImageUrl}>
                 <div className="castingTop w-28 h-28">
@@ -24,7 +24,7 @@ const ProductContents = ({ performersInfo, productDescription }) => {
                 </div>
               </li>
             ))}
-          </ul>
+          </ul> */}
           {/* <div className="contentToggleBtn mt-10 flex items-center justify-center bg-gray-100 rounded-lg p-5 text-darkgray">
             더보기
             <IoIosArrowDown />
