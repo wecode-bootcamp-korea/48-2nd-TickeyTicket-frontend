@@ -1,17 +1,28 @@
 import React, { useState } from 'react';
 import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io';
-import { PiStarLight, PiStarFill } from 'react-icons/fi';
+import { PiStarFill } from 'react-icons/pi';
 import ReactPaginate from 'react-paginate';
 
-const ProductReview = ({ props }) => {
+const ProductReview = ({ reviewData }) => {
   const [page, setPage] = useState(1);
   const itemsPerPage = 10;
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const displayedReviews = props.slice(startIndex, endIndex);
+  const displayedReviews = reviewData.slice(startIndex, endIndex);
+  const [clicked, setClicked] = useState('최신글순');
 
   const handlePageChange = selectedPage => {
     setPage(selectedPage.selected + 1);
+  };
+  const grade = reviewData => {
+    const stars = [];
+    for (let i = 1; i <= reviewData.rating; i++) {
+      stars.push(<PiStarFill />);
+    }
+    return stars;
+  };
+  const handleClick = index => {
+    setClicked(index);
   };
 
   return (
@@ -33,19 +44,45 @@ const ProductReview = ({ props }) => {
         </div>
         <div className="reviewListWrap">
           <div className="reviewListTop">
-            <div className="reviewsHead font-bold border-b-[1px] border-x-mediumgray pb-6 mb-10">
-              총&nbsp;<span className="text-brand">2</span>
+            <div className="reviewsHead font-bold border-b-[1px] border-x-mediumgray pb-4 mb-8">
+              총&nbsp;<span className="text-brand">{reviewData.length}</span>
               개의 관람후기가 등록되었습니다.
+            </div>
+            <div className="sorting text-darkgray text-sm flex justify-end gap-3 pr-5 pb-3">
+              <div
+                className={`dateFaster cursor-pointer ${
+                  clicked === '최신글순' ? 'font-bold text-black' : ''
+                }`}
+                onClick={() => {
+                  setClicked('최신글순');
+                }}
+              >
+                최근글순
+              </div>
+              <div
+                className={`dateFaster cursor-pointer ${
+                  clicked === '평점순' ? 'font-bold text-black' : ''
+                }`}
+                onClick={() => {
+                  setClicked('평점순');
+                }}
+              >
+                평점순
+              </div>
             </div>
           </div>
           {displayedReviews.map(data => (
             <ul className="reviewList pb-5" key={data.nickname}>
               <li className="reviewItem border-[1px] border-lightgray rounded-xl p-7">
                 <div className="reviewItemTop">
-                  <ul className="reviewItemInfo flex gap-3 text-sm flex-row-reverse text-darkgray">
-                    <li className="reviewItemInfoList">{data.writtenDate}</li>
-                    <li className="reviewItemInfoList">|</li>
-                    <li className="reviewItemInfoList">{data.nickname}</li>
+                  <ul className="reviewItemInfo flex gap-3 text-sm text-darkgray justify-between">
+                    <li className="reviewItemInfoList text-xl text-yellow-400 flex">
+                      {grade(data)}
+                    </li>
+                    <li className="reviewItemInfoList">
+                      {data.nickname}&nbsp;&nbsp; | &nbsp;&nbsp;
+                      {data.writtenDate}
+                    </li>
                   </ul>
                 </div>
                 <div className="reviewItemBody pt-4">
@@ -56,7 +93,7 @@ const ProductReview = ({ props }) => {
             </ul>
           ))}
           <ReactPaginate
-            pageCount={Math.ceil(props.length / itemsPerPage)}
+            pageCount={Math.ceil(reviewData.length / itemsPerPage)}
             pageRangeDisplayed={10}
             marginPagesDisplayed={5}
             onPageChange={handlePageChange}
