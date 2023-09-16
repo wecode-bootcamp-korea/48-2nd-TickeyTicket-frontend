@@ -1,30 +1,26 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
 // import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
-const ProductContents = () => {
-  const [productData, setProductData] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get('/data/detailData.json')
-      .then(response => setProductData(response.data));
-  }, []);
-
+const ProductContents = ({ performersInfo, productDescription }) => {
   return (
     <div className="productContents">
       <div className="content mb-32 casting">
         <h1 className="contentTitle font-bold text-xl">캐스팅</h1>
         <div className="castingWrap mt-12">
           <ul className="castingList flex flex-wrap gap-10 ">
-            {productData.map(data => (
-              <li className="castingItem" key={data.id}>
+            {performersInfo.map(data => (
+              <li className="castingItem" key={data.actorImageUrl}>
                 <div className="castingTop w-28 h-28">
-                  <img className="rounded-full" src="../images/actor.jpeg" />
+                  <img
+                    className="rounded-full"
+                    src={data.actorImageUrl}
+                    alt="출연자이미지"
+                  />
                 </div>
                 <div className="castingInfo text-center pt-2">
-                  <div className="castingActor font-bold">{data.name}</div>
-                  <div className="castingName">{data.name}</div>
+                  <div className="castingActor font-bold">
+                    {data.performerDescription}
+                  </div>
+                  <div className="castingName">{data.performerName}</div>
                 </div>
               </li>
             ))}
@@ -36,27 +32,21 @@ const ProductContents = () => {
         </div>
       </div>
       <div className="content mb-32">
-        <h1 className="contentTitle font-bold text-xl">공연시간 정보</h1>
-        <div className="contentDetail mt-8 leading-10">
-          <p className="contentDetailText">공연시간 : 화, 수, 목 7시</p>
-        </div>
-      </div>
-      <div className="content mb-32">
         <h1 className="contentTitle font-bold text-xl">공지사항</h1>
         <div className="contentDetail mt-8 leading-10">
-          <p className="contentDetailText">어쩌구저쩌구</p>
+          <p className="contentDetailText">{productDescription}</p>
         </div>
       </div>
       <div className="content mb-32">
         <h1 className="contentTitle font-bold text-xl">할인정보</h1>
         <div className="contentDetail mt-8 leading-10">
-          <p className="contentDetailText">어쩌구저쩌구</p>
+          <p className="contentDetailText">{productDescription}</p>
         </div>
       </div>
       <div className="content mb-32">
         <h1 className="contentTitle font-bold text-xl">공연상세</h1>
         <div className="contentDetail mt-8 leading-10">
-          <p className="contentDetailText">어쩌구저쩌구</p>
+          <p className="contentDetailText">{productDescription}</p>
         </div>
       </div>
     </div>

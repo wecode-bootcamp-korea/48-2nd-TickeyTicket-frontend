@@ -1,26 +1,18 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io';
 import { PiStarLight, PiStarFill } from 'react-icons/fi';
 import ReactPaginate from 'react-paginate';
 
-const ProductReview = () => {
-  const [reviewData, setReviewData] = useState([]);
+const ProductReview = ({ props }) => {
   const [page, setPage] = useState(1);
   const itemsPerPage = 10;
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const displayedReviews = reviewData.slice(startIndex, endIndex);
+  const displayedReviews = props.slice(startIndex, endIndex);
 
   const handlePageChange = selectedPage => {
     setPage(selectedPage.selected + 1);
   };
-
-  useEffect(() => {
-    axios
-      .get('/data/review.json')
-      .then(response => setReviewData(response.data));
-  }, []);
 
   return (
     <div className="productReview">
@@ -41,30 +33,30 @@ const ProductReview = () => {
         </div>
         <div className="reviewListWrap">
           <div className="reviewListTop">
-            <div className="reviewsHead font-bold border-b-[1px] border-x-mediumgray pb-6">
+            <div className="reviewsHead font-bold border-b-[1px] border-x-mediumgray pb-6 mb-10">
               총&nbsp;<span className="text-brand">2</span>
               개의 관람후기가 등록되었습니다.
             </div>
           </div>
           {displayedReviews.map(data => (
-            <ul className="reviewList pb-5" key={data.id}>
+            <ul className="reviewList pb-5" key={data.nickname}>
               <li className="reviewItem border-[1px] border-lightgray rounded-xl p-7">
                 <div className="reviewItemTop">
                   <ul className="reviewItemInfo flex gap-3 text-sm flex-row-reverse text-darkgray">
-                    <li className="reviewItemInfoList">{data.date}</li>
+                    <li className="reviewItemInfoList">{data.writtenDate}</li>
                     <li className="reviewItemInfoList">|</li>
-                    <li className="reviewItemInfoList">{data.name}</li>
+                    <li className="reviewItemInfoList">{data.nickname}</li>
                   </ul>
                 </div>
                 <div className="reviewItemBody pt-4">
                   <div className="reviewTitle pb-4 font-bold">{data.title}</div>
-                  <div className="reviewText text-sm">{data.text}</div>
+                  <div className="reviewText text-sm">{data.content}</div>
                 </div>
               </li>
             </ul>
           ))}
           <ReactPaginate
-            pageCount={Math.ceil(reviewData.length / itemsPerPage)}
+            pageCount={Math.ceil(props.length / itemsPerPage)}
             pageRangeDisplayed={10}
             marginPagesDisplayed={5}
             onPageChange={handlePageChange}
