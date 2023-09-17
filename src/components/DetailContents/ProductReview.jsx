@@ -13,10 +13,10 @@ const ProductReview = ({ reviewData }) => {
   const endIndex = startIndex + itemsPerPage;
   const sortedReviews = reviewData.sort((a, b) => {
     if (sortItems === 'writtenDate') {
-      // 최신글순 정렬
+      // 최신글순 정렬 //
       return new Date(b.writtenDate) - new Date(a.writtenDate);
     } else if (sortItems === 'rating') {
-      // 평점순 정렬
+      // 평점순 정렬 //
       return b.grade.length - a.grade.length;
     }
     return 0;
