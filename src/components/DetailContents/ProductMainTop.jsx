@@ -59,7 +59,9 @@ const ProductMainTop = ({
                 러닝타임
               </div>
               <div className="infoDesc max-w-[39rem]">
-                <div className="infoText">{runningTime.toString()}분</div>
+                <div className="infoText">
+                  {parseInt(runningTime.slice(0, 5).replace(':', '.')) * 60}분
+                </div>
               </div>
             </li>
             <li className="infoItem leading-[2.2rem] flex mb-4">
