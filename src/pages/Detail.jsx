@@ -10,7 +10,13 @@ const Detail = () => {
   const [detailData, setDetailData] = useState({});
   const [reviewData, setReviewData] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // 로딩 중 여부 상태 추가
-  const navData = ['공연정보', '판매정보', '관람후기', '기대평', 'Q&A'];
+  const navData = [
+    '공연정보',
+    '판매정보',
+    `관람후기(${reviewData.length})`,
+    '기대평',
+    'Q&A',
+  ];
 
   const handleClick = index => {
     setActiveNavIndex(index);
@@ -85,7 +91,12 @@ const Detail = () => {
             {activeNavIndex === 4 && <ProductReview />}
           </div>
         </div>
-        <ProductSide />
+        <ProductSide
+          startDate={detailData.startDate}
+          endDate={detailData.endDate}
+          startTime={detailData.startTime}
+          availableTicket={detailData.availableTicket}
+        />
       </div>
     </div>
   );

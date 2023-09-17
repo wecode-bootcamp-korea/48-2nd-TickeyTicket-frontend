@@ -5,24 +5,42 @@ import ReactPaginate from 'react-paginate';
 
 const ProductReview = ({ reviewData }) => {
   const [page, setPage] = useState(1);
+  const [clicked, setClicked] = useState('최신글순');
+  const [sortItems, setSortItems] = useState('writtenDate');
+
   const itemsPerPage = 10;
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const displayedReviews = reviewData.slice(startIndex, endIndex);
-  const [clicked, setClicked] = useState('최신글순');
+  const sortedReviews = reviewData.sort((a, b) => {
+    if (sortItems === 'writtenDate') {
+      // 최신글순 정렬
+      return new Date(b.writtenDate) - new Date(a.writtenDate);
+    } else if (sortItems === 'rating') {
+      // 평점순 정렬
+      return b.grade.length - a.grade.length;
+    }
+    return 0;
+  });
+  const displayedReviews = sortedReviews.slice(startIndex, endIndex);
+
+  const handleNewClicked = () => {
+    setSortItems('writtenDate');
+  };
+  const handleBestClicked = () => {
+    setSortItems('rating');
+  };
+  console.log(sortItems);
 
   const handlePageChange = selectedPage => {
     setPage(selectedPage.selected + 1);
   };
+
   const grade = reviewData => {
     const stars = [];
     for (let i = 1; i <= reviewData.rating; i++) {
       stars.push(<PiStarFill />);
     }
     return stars;
-  };
-  const handleClick = index => {
-    setClicked(index);
   };
 
   return (
@@ -53,19 +71,25 @@ const ProductReview = ({ reviewData }) => {
                 className={`dateFaster cursor-pointer ${
                   clicked === '최신글순' ? 'font-bold text-black' : ''
                 }`}
-                onClick={() => {
-                  setClicked('최신글순');
-                }}
+                onClick={
+                  (handleNewClicked,
+                  () => {
+                    setClicked('최신글순');
+                  })
+                }
               >
-                최근글순
+                최신글순
               </div>
               <div
                 className={`dateFaster cursor-pointer ${
                   clicked === '평점순' ? 'font-bold text-black' : ''
                 }`}
-                onClick={() => {
-                  setClicked('평점순');
-                }}
+                onClick={
+                  (handleBestClicked,
+                  () => {
+                    setClicked('평점순');
+                  })
+                }
               >
                 평점순
               </div>

@@ -12,6 +12,7 @@
         "startTime": "17:00:00",
         "runningTime": "02:00:00",
         "price": 130000,
+        "availableTicket": 24,
         "performersInfo": [
           {
             "actorImageUrl": "../images/actor.jpeg",
