@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
 import axios from 'axios';
@@ -10,6 +11,7 @@ const SLIDES_PER_VIEW = 3;
 
 const EventCard = () => {
   const [eventCardData, setEventCardData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get('/data/eventCard.json').then(response => {
@@ -36,6 +38,9 @@ const EventCard = () => {
           <div
             className="eventCardImage w-full h-60 rounded-3xl mb-5 cursor-pointer bg-cover bg-no-repeat bg-center"
             style={{ backgroundImage: `url(${data.url})` }}
+            onClick={() => {
+              navigate(`/main/?genreId=${data.genreId}`);
+            }}
           >
             <div className="showReport w-full h-full bg-white bg-opacity-50 rounded-3xl text-center px-6 pt-14">
               <div className="text-2xl font-bold">{data.name}</div>

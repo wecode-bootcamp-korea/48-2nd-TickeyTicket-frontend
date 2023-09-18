@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -8,6 +9,7 @@ import { Autoplay, Pagination } from 'swiper/modules';
 
 const MainBanner = () => {
   const [bannerData, setBannerData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get('/data/mainBanner.json').then(response => {
@@ -43,7 +45,11 @@ const MainBanner = () => {
       {bannerData.map(data => (
         <SwiperSlide
           key={data.id}
-          onClick={() => window.open(`${data.categoryUrl}`, '_blank')}
+          onClick={() =>
+            data.genreId
+              ? navigate(`/main/?genreId=${data.genreId}`)
+              : navigate('/main')
+          }
         >
           <div
             className="bannerImage shrink-0 relative h-full w-full rounded-2xl shadow-xl cursor-pointer bg-cover bg-no-repeat bg-center"
