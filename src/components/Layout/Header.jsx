@@ -26,7 +26,7 @@ export default function Header() {
   if (window.location.pathname === '/signup') return null;
 
   return (
-    <div className="relative z-30 border-b">
+    <div className="relative z-30">
       <div className="max-w-[1256px] h-20 py-2.5 mx-auto relative flex items-center content-between">
         <div className="mr-9 static flex-[0.7_0_auto]">
           <a
