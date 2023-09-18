@@ -47,8 +47,8 @@ const MainBanner = () => {
           key={data.id}
           onClick={() =>
             data.genreId
-              ? navigate(`/main/?genreId=${data.genreId}`)
-              : navigate('/main')
+              ? navigate(`/sub/?genreId=${data.genreId}`)
+              : navigate('/sub')
           }
         >
           <div

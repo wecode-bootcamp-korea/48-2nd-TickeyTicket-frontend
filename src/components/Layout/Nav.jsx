@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { NAV_BAR } from '../../utils/constants';
 
 export default function Nav() {
-  const [activeTab, setActiveTab] = useState(1);
   const handleClick = el => {
     navigate(el.url);
-    setActiveTab(el.id);
   };
   const navigate = useNavigate();
+  const { pathname, search } = useLocation();
 
-  if (window.location.pathname === '/login') return null;
-  if (window.location.pathname === '/signup') return null;
+  const currentPath = pathname + search;
+
+  if (pathname === '/login') return null;
+  if (pathname === '/signup') return null;
 
   return (
     <div className="relative z-30 border-b">
@@ -19,7 +21,7 @@ export default function Nav() {
           <nav className=" overflow-hidden flex items-stretch my-[-5px] h-[51px]">
             <ul className=" mx-[5px] block">
               {NAV_BAR.map(el => {
-                const isActive = el.id === activeTab;
+                const isActive = el.url === currentPath;
 
                 const textColor = isActive ? 'text-brand' : '';
                 return (
@@ -41,61 +43,3 @@ export default function Nav() {
     </div>
   );
 }
-
-const NAV_BAR = [
-  {
-    id: 1,
-    tabName: '홈',
-    url: '/',
-  },
-  {
-    id: 2,
-    tabName: '전체',
-    url: '/main',
-  },
-  {
-    id: 3,
-    tabName: '뮤지컬',
-    url: '/main?genreId=1',
-  },
-  {
-    id: 4,
-    tabName: '연극',
-    url: '/main?genreId=2',
-  },
-  {
-    id: 5,
-    tabName: '클래식',
-    url: '/main?genreId=3',
-  },
-  {
-    id: 6,
-    tabName: '무용',
-    url: '/main?genreId=4',
-  },
-  {
-    id: 7,
-    tabName: '전시',
-    url: '/main?genreId=5',
-  },
-  {
-    id: 8,
-    tabName: '행사',
-    url: '/main?genreId=6',
-  },
-  {
-    id: 9,
-    tabName: '음악',
-    url: '/main?genreId=7',
-  },
-  {
-    id: 10,
-    tabName: '코미디',
-    url: '/main?genreId=8',
-  },
-  {
-    id: 11,
-    tabName: '버스킹',
-    url: '/main?genreId=9',
-  },
-];

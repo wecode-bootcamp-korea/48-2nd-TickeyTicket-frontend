@@ -7,6 +7,8 @@ import Categories from '../components/Categories/Categories';
 import EventCard from '../components/Categories/EventCard';
 import BenefitCard from '../components/Categories/BenefitCard';
 import ButtonMap from '../components/Map/ButtonMap';
+import { getLocationAndFetchData } from '../utils/getLocationAndFetchData';
+// import { getLocationAndFetchData } from '../utils/getLocationAndFetchData';
 
 const Main = () => {
   const [mainData, setMainData] = useState([]);
@@ -14,17 +16,15 @@ const Main = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [myLocation, setMyLocation] = useState({
-    center: {
-      lat: 33.450701,
-      lng: 126.570667,
-    },
+    lat: null,
+    lng: null,
     errMsg: null,
   });
 
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://10.58.52.158:3000/main?lat=${myLocation.center.lat}&lng=${myLocation.center.lng}`,
+        `http://10.58.52.170:3000/main?lat=${myLocation.lat}&lng=${myLocation.lng}`,
       );
       setMainData(response.data.data);
       setIsLoading(false);
@@ -35,40 +35,14 @@ const Main = () => {
   };
 
   useEffect(() => {
-    const getLocationAndFetchData = async () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          position => {
-            setMyLocation({
-              center: {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-              },
-              errMsg: null,
-            });
-          },
-          err => {
-            setMyLocation(prev => ({
-              ...prev,
-              errMsg: err.message,
-            }));
-          },
-          { enableHighAccuracy: true },
-        );
-      } else {
-        setMyLocation(prev => ({
-          ...prev,
-          errMsg: '현재 위치를 불러올 수 없습니다',
-        }));
-      }
-    };
-
-    getLocationAndFetchData(); // 위치 정보 및 데이터 가져오는 함수 호출
+    getLocationAndFetchData(setMyLocation);
   }, []);
 
   useEffect(() => {
+    if (!myLocation.lat) return;
+
     fetchData();
-  }, [myLocation.center.lat, myLocation.center.lng]);
+  }, [myLocation.lat, myLocation.lng]);
 
   if (isLoading) {
     return <div>Loading...</div>;

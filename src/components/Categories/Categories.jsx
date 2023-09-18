@@ -11,7 +11,7 @@ const Categories = ({ data, genreId }) => {
     if (!data.length > 0) {
       navigate('/');
     } else {
-      navigate(`/main?genreId=${data[0].genreId}`);
+      navigate(`/sub?genreId=${data[0].genreId}`);
     }
   };
 
