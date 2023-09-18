@@ -39,7 +39,7 @@ const EventCard = () => {
             className="eventCardImage w-full h-60 rounded-3xl mb-5 cursor-pointer bg-cover bg-no-repeat bg-center"
             style={{ backgroundImage: `url(${data.url})` }}
             onClick={() => {
-              navigate(`/main/?genreId=${data.genreId}`);
+              navigate(`/sub?genreId=${data.genreId}`);
             }}
           >
             <div className="showReport w-full h-full bg-white bg-opacity-50 rounded-3xl text-center px-6 pt-14">

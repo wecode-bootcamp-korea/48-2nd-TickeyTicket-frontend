@@ -4,20 +4,19 @@ import { VscHeart, VscHeartFilled } from 'react-icons/vsc';
 
 const Card = () => {
   const [subCardData, setSubCardData] = useState([]);
+  const token = localStorage.getItem('token');
 
   const isToggled = () => {
-    axios.post('/data/mainCard.json').then(() => {
-      axios.get('/data/mainCard.json').then(response => {
-        setSubCardData(response.data);
+    if (!token) {
+      window.location.href = '/login';
+    } else {
+      axios.post('/data/mainCard.json').then(() => {
+        axios.get('/data/mainCard.json').then(response => {
+          setSubCardData(response.data);
+        });
       });
-    });
+    }
   };
-
-  useEffect(() => {
-    axios.get('/data/mainCard.json').then(response => {
-      setSubCardData(response.data);
-    });
-  }, []);
 
   return (
     <>
@@ -41,9 +40,13 @@ const Card = () => {
             </div>
           </div>
           <div className="showReport p-2 pl-3">
-            <div>{data.name}</div>
-            <div>{data.place}</div>
-            <div>{data.period} </div>
+            <div>
+              {data.genreName} &lt;{data.name}&gt;
+            </div>
+            <div className="text-xs">{data.place}</div>
+            <div>
+              {data.startDate} ~ {data.endDate}
+            </div>
           </div>
         </div>
       ))}
