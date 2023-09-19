@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import './PaySubmit.css';
 
 const PaySubmit = () => {
+  const token = localStorage.getItem('token');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const bookingId = searchParams.get('bookingId'); // bookingId를 쿼리 매개변수에서 가져옵니다.
   const [phoneNumber, setPhoneNumber] = useState('');
   const changePhoneNumber = event => {
     setPhoneNumber(event.target.value);
@@ -10,12 +14,45 @@ const PaySubmit = () => {
 
   const [isRadioSelected, setIsRadioSelected] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  const [name, setName] = useState('');
+  const [userInfo, setUserInfo] = useState({
+    totalPrice: '',
+    bookingId: '',
+  });
+
+  useEffect(() => {
+    axios
+      .get(`http://example.com/api/endpoint?bookingId=${bookingId}`, {
+        // 실제 엔드포인트 URL로 변경해야 합니다.
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(response => {
+        const data = response.data;
+        setUserInfo({
+          totalPrice: data.totalPrice,
+          bookingId: '',
+        });
+      })
+      .catch(error => {
+        console.error('API 호출 오류:', error);
+      });
+  }, [bookingId, token]); // bookingId와 token을 의존성 배열에 추가합니다.
 
   useEffect(() => {
     setIsActive(phoneNumber.length === 11 && isRadioSelected);
   }, [phoneNumber, isRadioSelected]);
 
-  const handleSubmit = async event => {
+  useEffect(() => {
+    const userName = localStorage.getItem('name');
+    if (userName) {
+      setName(userName);
+    }
+  }, []);
+
+  const handleSubmit = event => {
     event.preventDefault();
 
     const isValidPhoneNumber =
@@ -31,15 +68,22 @@ const PaySubmit = () => {
       alert('전화번호를 확인하세요.');
       return;
     }
+  };
 
+  const handlePaymentSuccess = async () => {
     try {
-      const serverUrl = 'http://localhost:3000/handle-payment';
+      const serverUrl = 'http://example.com/api/payment/success'; // 서버의 엔드포인트 URL
 
-      const data = { phoneNumber, statusCode: '200' };
+      const paymentSuccessData = {
+        bookingId: bookingId,
+        paymentStatus: 'success',
+        // 기타 필요한 정보
+      };
 
-      const response = await axios.post(serverUrl, data, {
+      const response = await axios.post(serverUrl, paymentSuccessData, {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -57,10 +101,10 @@ const PaySubmit = () => {
       cid: 'TC0ONETIME',
       partner_order_id: 'partner_order_id',
       partner_user_id: 'partner_user_id',
-      item_name: '초코파이',
+      item_name: '뮤지컬 문스토리',
       quantity: 1,
-      total_amount: 2200,
-      vat_amount: 200,
+      total_amount: 10000,
+      vat_amount: 1000,
       tax_free_amount: 0,
       approval_url: 'http://localhost:3000/mypage',
       fail_url: 'http://localhost:3000/payment',
@@ -71,7 +115,6 @@ const PaySubmit = () => {
   const handleKakaoPayClick = () => {
     window.location.href = paymentInfo.next_redirect_pc_url;
   };
-
   useEffect(() => {
     const fetchPaymentInfo = async () => {
       try {
@@ -98,7 +141,7 @@ const PaySubmit = () => {
     };
 
     fetchPaymentInfo();
-  }, [paymentInfo]);
+  }, []);
 
   return (
     <div className="paySubmit flex flex-col justify-between flex-1 pl-7 p-5 pt-0">
@@ -110,7 +153,7 @@ const PaySubmit = () => {
               <span>이름</span>
             </div>
             <div className="w-[20%] p-3">
-              <span>name</span>
+              <span>{name}</span>
             </div>
             <div className="inputTitle w-[20%] p-3 font-bold bg-zinc-50">
               <span>휴대폰 번호</span>

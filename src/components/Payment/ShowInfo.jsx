@@ -31,7 +31,7 @@ const ShowInfo = () => {
           <div>
             <div className="flex flex-row justify-between mb-1 text-base leading-normal">
               인원
-              <span className="text-brand">2명</span>
+              <span className="text-brand">1명</span>
             </div>
             <div className="flex flex-row justify-between text-base leading-normal">
               총액
