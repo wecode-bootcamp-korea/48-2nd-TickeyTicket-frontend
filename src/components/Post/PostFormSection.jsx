@@ -17,7 +17,7 @@ const options = [
 
 export default function PostFormSection() {
   const [product, setProduct] = useState({});
-  const [address, setAddress] = useState('주소를 등록해주세요!'); // 주소
+  const [address, setAddress] = useState('주소를 등록해주세요!');
   const [placeName, setPlaceName] = useState('');
   const [placeX, setPlaceX] = useState(126.570667);
   const [placeY, setPlaceY] = useState(33.450701);
