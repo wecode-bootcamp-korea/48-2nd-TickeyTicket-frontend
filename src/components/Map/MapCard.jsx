@@ -1,13 +1,19 @@
 import React from 'react';
 import { VscHeart, VscHeartFilled } from 'react-icons/vsc';
+import { useNavigate } from 'react-router-dom';
 
 const MapCard = ({ data, isToggled }) => {
   const realDate = data.startDate?.split('T')[0];
+  const navigate = useNavigate();
+  const handleCardClick = () => {
+    navigate(`/detail/${data.productId}`);
+  };
 
   return (
     <div
       className="mapCard relative shrink-0 w-24.3% rounded-xl shadow-md cursor-pointer"
       key={data.productId}
+      onClick={handleCardClick}
     >
       <div
         className="showImg w-full h-52 rounded-t-xl bg-cover bg-no-repeat bg-center"

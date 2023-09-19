@@ -1,4 +1,5 @@
 .mapPage .mapCard {
   width: 300px;
   background-color: #fff;
+  z-index: 10;
 }
