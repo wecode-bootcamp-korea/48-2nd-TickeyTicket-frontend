@@ -36,9 +36,9 @@ export default function SignUpForm() {
 
     // 로그인 인증상태를 브라우저 세션 동안 유지하도록 하고 성공 시 넘어감
     axios
-      .post('http://127.0.0.1:3000/user-router/signup', {
-        user_name: name,
-        nickname: nickname,
+      .post('http://10.58.52.246:3000/user-router/signup', {
+        userName: name,
+        nickName: nickname,
         email: email,
         password: password,
       })
@@ -123,7 +123,7 @@ export default function SignUpForm() {
               />
             </label>
           </div>
-          <div className="">
+          {/* <div className="">
             <label className="block mb-3 text-base font-bold natural-800">
               휴대전화
             </label>
@@ -138,7 +138,7 @@ export default function SignUpForm() {
                 valueRef={auth.confirmPasswordRef}
               />
             </label>
-          </div>
+          </div> */}
           <div className="mt-1 mb-8">
             <button className="mt-2.5 w-full h-12 bg-gray-100 font-bold box-border text-sm border border-gray-300 rounded text-zinc-400">
               휴대전화 인증하기
