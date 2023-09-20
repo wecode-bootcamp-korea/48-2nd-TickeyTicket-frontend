@@ -7,6 +7,8 @@ export default function KaKaoLogin() {
   const navigate = useNavigate();
   const AUTHORIZE_CODE = location.search.split('=')[1];
 
+  console.log('????', AUTHORIZE_CODE);
+
   const getKakaoToken = () => {
     fetch(`https://kauth.kakao.com/oauth/token`, {
       method: 'POST',
@@ -25,9 +27,14 @@ export default function KaKaoLogin() {
   };
 
   const postKakaoToken = () => {
-    axios.post('http://127.0.0.1:3000/kakao-router/kakaologin', {
-      kakaoAccessToken: localStorage.getItem('token'),
-    });
+    axios
+      .post('http://10.58.52.246:3000/kakao-router/kakaologin', {
+        kakaoAccessToken: localStorage.getItem('token'),
+      })
+      .then(res => res)
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
