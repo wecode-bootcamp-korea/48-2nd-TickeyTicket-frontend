@@ -35,7 +35,7 @@ const Sub = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://10.58.52.170:3000/main?lat=${myLocation.lat}&lng=${myLocation.lng}&genreId=${genreId}`,
+        `http://10.58.52.221:3000/main?lat=${myLocation.lat}&lng=${myLocation.lng}&genreId=${genreId}`,
       );
       setSubData(response.data.data);
     } catch (error) {
@@ -53,18 +53,16 @@ const Sub = () => {
     fetchData();
   }, [myLocation.lat, myLocation.lng, genreId]);
 
-  console.log('>>>>>>>', subData);
-
   return (
     <div className="sub">
       <div className="container">
         <div className="subCategories">
-          <div className="categories relative mt-24 mb-48">
-            <div className="categoryHeader flex justify-between mb-6">
+          <div className="categories relative mt-20 mb-48">
+            <div className="categoryHeader flex justify-between mb-10">
               <div className="cardTitle text-3xl font-bold">{subTitle}</div>
               <div className="filter flex gap-2 mr-3">
                 <button
-                  className={`more cursor-pointer flex items-center mt-10 gap-2 p-1 pl-5 pr-5 border border-gray-700 rounded-3xl text-gray-700 ${
+                  className={`more cursor-pointer flex items-center gap-2 p-1 pl-5 pr-5 border border-gray-700 rounded-3xl text-gray-700 ${
                     clicked === '인기순' ? 'bg-black text-white' : ''
                   }`}
                   onClick={() => handleClick('인기순')}
@@ -73,7 +71,7 @@ const Sub = () => {
                   인기순
                 </button>
                 <button
-                  className={`more cursor-pointer flex items-center mt-10 gap-2 p-1 pl-5 pr-5 border border-gray-700 rounded-3xl text-gray-700 ${
+                  className={`more cursor-pointer flex items-center gap-2 p-1 pl-5 pr-5 border border-gray-700 rounded-3xl text-gray-700 ${
                     clicked === '날짜빠른순' ? 'bg-black text-white' : ''
                   }`}
                   onClick={() => handleClick('날짜빠른순')}
