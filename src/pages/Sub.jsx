@@ -35,7 +35,7 @@ const Sub = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://10.58.52.221:3000/main?lat=${myLocation.lat}&lng=${myLocation.lng}&genreId=${genreId}`,
+        `http://10.58.52.77:3000/main?lat=${myLocation.lat}&lng=${myLocation.lng}&genreId=${genreId}`,
       );
       setSubData(response.data.data);
     } catch (error) {

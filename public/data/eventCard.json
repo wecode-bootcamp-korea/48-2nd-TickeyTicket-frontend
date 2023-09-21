@@ -1,42 +1,42 @@
 [
   {
     "id": 1,
-    "url": "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80",
-    "name": "클래식 연주회",
-    "period": "2023.07.20 ~ 2023.10.10",
+    "url": "https://tickeyticket.s3.ap-northeast-2.amazonaws.com/30.jpg",
+    "name": "GOLDEN ORCHESTRA",
+    "period": "2023.10.18 ~ 2023.10.20",
     "genreId": 3,
-    "text": ["어쩌구저쩌구아러이ㅏㅓ라ㅣㅓ", "ㅇ;너리안머라ㅣ;어나ㅣ렁"]
+    "text": ["오늘도 쉴새없이 턴다"]
   },
   {
     "id": 2,
-    "url": "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80",
-    "name": "버스킹",
-    "period": "2023.07.20 ~ 2023.10.10",
+    "url": "https://tickeyticket.s3.ap-northeast-2.amazonaws.com/1.jpg",
+    "name": "뮤직그루브파티",
+    "period": "2023.09.25 ~ 2023.10.10",
     "genreId": 9,
-    "text": ["어쩌구저쩌구아러이ㅏㅓ라ㅣㅓ", "ㅇ;너리안머라ㅣ;어나ㅣ렁"]
+    "text": ["마침내… 13년만의 한국어 공연"]
   },
   {
     "id": 3,
-    "url": "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80",
-    "name": "전시회",
-    "period": "2023.07.20 ~ 2023.10.10",
+    "url": "https://tickeyticket.s3.ap-northeast-2.amazonaws.com/34.jpg",
+    "name": "서울 예술기행 전시회",
+    "period": "2023.09.25 ~ 2023.10.10",
     "genreId": 5,
-    "text": ["어쩌구저쩌구아러이ㅏㅓ라ㅣㅓ", "ㅇ;너리안머라ㅣ;어나ㅣ렁"]
+    "text": ["세 별의 총성, 사라진 내일", "갈 수 없는 나라"]
   },
   {
     "id": 4,
-    "url": "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80",
-    "name": "코미디",
-    "period": "2023.07.20 ~ 2023.10.10",
+    "url": "https://tickeyticket.s3.ap-northeast-2.amazonaws.com/18.jpg",
+    "name": "즉흥연주가 선사하는 흥",
+    "period": "2023.10.05 ~ 2023.10.15",
     "genreId": 8,
-    "text": ["어쩌구저쩌구아러이ㅏㅓ라ㅣㅓ", "ㅇ;너리안머라ㅣ;어나ㅣ렁"]
+    "text": ["운명은 원하지 않을 때 일방적으로 다가온다"]
   },
   {
     "id": 5,
-    "url": "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80",
-    "name": "무용",
-    "period": "2023.07.20 ~ 2023.10.10",
+    "url": "https://tickeyticket.s3.ap-northeast-2.amazonaws.com/56.jpg",
+    "name": "여신님이 보고계셔",
+    "period": "2023.10.18 ~ 2023.10.30",
     "genreId": 4,
-    "text": ["어쩌구저쩌구아러이ㅏㅓ라ㅣㅓ", "ㅇ;너리안머라ㅣ;어나ㅣ렁"]
+    "text": ["언제나 우리를 비추는 눈부신 그녀만 믿으면 돼"]
   }
 ]

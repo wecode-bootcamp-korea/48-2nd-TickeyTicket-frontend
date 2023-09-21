@@ -3,22 +3,27 @@ import Calendar from './Calendar';
 import axios from 'axios';
 
 const ProductSide = ({ data, setSelectedDate, selectedDate }) => {
-  console.log('first>>>>>>>', data);
   const navigate = useNavigate();
-  const productOptionId = data.productOptionId;
 
   const handleClick = async () => {
     try {
-      const token = localStorage.getItem('Token');
+      const Token = localStorage.getItem('token');
 
-      if (!token) {
+      if (!Token) {
         navigate('/login');
         return;
       }
 
       await axios.post(
-        `http://10.58.52.221:3000/payment`,
-        { productOptionId },
+        `http://10.58.52.77:3000/reservation/createReservation`,
+        {
+          productName: data.productName,
+          space: data.place,
+          startDate: handleDateSelect,
+          startTime: data.startTime,
+          thumbnailImageUrl: data.thumbnailImageUrl,
+          price: data.price,
+        },
         {},
       );
 
