@@ -19,6 +19,7 @@ export default function KaKaoLogin() {
       .then(data => {
         if (data.access_token) {
           postKakaoToken(data.access_token);
+          localStorage.setItem('token', data.access_token);
         } else {
           navigate('/');
         }
