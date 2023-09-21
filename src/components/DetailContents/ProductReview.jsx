@@ -66,34 +66,36 @@ const ProductReview = ({ reviewData }) => {
               총&nbsp;<span className="text-brand">{reviewData.length}</span>
               개의 관람후기가 등록되었습니다.
             </div>
-            <div className="sorting text-darkgray text-sm flex justify-end gap-3 pr-5 pb-3">
-              <div
-                className={`dateFaster cursor-pointer ${
-                  clicked === '최신글순' ? 'font-bold text-black' : ''
-                }`}
-                onClick={
-                  (handleNewClicked,
-                  () => {
-                    setClicked('최신글순');
-                  })
-                }
-              >
-                최신글순
+            {reviewData.length > 0 && (
+              <div className="sorting text-darkgray text-sm flex justify-end gap-3 pr-5 pb-3">
+                <div
+                  className={`dateFaster cursor-pointer ${
+                    clicked === '최신글순' ? 'font-bold text-black' : ''
+                  }`}
+                  onClick={
+                    (handleNewClicked,
+                    () => {
+                      setClicked('최신글순');
+                    })
+                  }
+                >
+                  최신글순
+                </div>
+                <div
+                  className={`dateFaster cursor-pointer ${
+                    clicked === '평점순' ? 'font-bold text-black' : ''
+                  }`}
+                  onClick={
+                    (handleBestClicked,
+                    () => {
+                      setClicked('평점순');
+                    })
+                  }
+                >
+                  평점순
+                </div>
               </div>
-              <div
-                className={`dateFaster cursor-pointer ${
-                  clicked === '평점순' ? 'font-bold text-black' : ''
-                }`}
-                onClick={
-                  (handleBestClicked,
-                  () => {
-                    setClicked('평점순');
-                  })
-                }
-              >
-                평점순
-              </div>
-            </div>
+            )}
           </div>
           {displayedReviews.map(data => (
             <ul className="reviewList pb-5" key={data.nickname}>
@@ -116,17 +118,19 @@ const ProductReview = ({ reviewData }) => {
               </li>
             </ul>
           ))}
-          <ReactPaginate
-            pageCount={Math.ceil(reviewData.length / itemsPerPage)}
-            pageRangeDisplayed={10}
-            marginPagesDisplayed={5}
-            onPageChange={handlePageChange}
-            containerClassName="pagination"
-            pageClassName="pageNumBtn"
-            activeClassName="active"
-            previousLabel={<IoMdArrowDropleft className="pageNumBtn" />}
-            nextLabel={<IoMdArrowDropright className="pageNumBtn" />}
-          />
+          {reviewData.length > 0 && (
+            <ReactPaginate
+              pageCount={Math.ceil(reviewData.length / itemsPerPage)}
+              pageRangeDisplayed={10}
+              marginPagesDisplayed={5}
+              onPageChange={handlePageChange}
+              containerClassName="pagination"
+              pageClassName="pageNumBtn"
+              activeClassName="active"
+              previousLabel={<IoMdArrowDropleft className="pageNumBtn" />}
+              nextLabel={<IoMdArrowDropright className="pageNumBtn" />}
+            />
+          )}
         </div>
       </div>
     </div>

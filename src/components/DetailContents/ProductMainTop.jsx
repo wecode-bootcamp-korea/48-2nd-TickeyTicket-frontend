@@ -1,24 +1,26 @@
 import React from 'react';
 
-const ProductMainTop = ({
-  id,
-  name,
-  generName,
-  thumbnailImageUrl,
-  performPlace,
-  startDate,
-  endDate,
-  startTime,
-  runningTime,
-  price,
-}) => {
+const ProductMainTop = ({ data }) => {
+  const {
+    id,
+    genreName,
+    name,
+    thumbnailImageUrl,
+    performPlace,
+    startDate,
+    endDate,
+    startTime,
+    runningTime,
+    price,
+  } = data;
+
   return (
     <div className="productMainTop" key={id}>
-      <div className="summary pb-[6.5rem]">
+      <div className="summary pb-10">
         <div className="summaryTop mb-[1.9rem]">
           <div className="tag bg-brand">공연임박</div>
           <h1 className="prdTitle text-3xl font-bold mt-3">
-            {generName} &#60;{name} &#62;
+            {genreName} &#60;{name} &#62;
           </h1>
         </div>
         <div className="summaryBody">
@@ -42,7 +44,7 @@ const ProductMainTop = ({
               </div>
               <div className="infoDesc max-w-[39rem]">
                 <div className="infoText">
-                  {startDate.slice(0, 10)} ~ {endDate.slice(0, 10)}
+                  {startDate} ~ {endDate}
                 </div>
               </div>
             </li>

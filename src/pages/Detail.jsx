@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 import ProductSide from '../components/DetailContents/ProductSide';
 import ProductMainTop from '../components/DetailContents/ProductMainTop';
 import ProductContents from '../components/DetailContents/ProductContents';
 import ProductReview from '../components/DetailContents/ProductReview';
-import axios from 'axios';
 
 const Detail = () => {
   const [activeNavIndex, setActiveNavIndex] = useState(0);
   const [detailData, setDetailData] = useState({});
   const [reviewData, setReviewData] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // 로딩 중 여부 상태 추가
+  const { pathname } = useLocation();
+  const productId = pathname.slice(8);
+  const [selectedDate, setSelectedDate] = useState();
+
   const navData = [
     '공연정보',
     '판매정보',
@@ -24,7 +29,9 @@ const Detail = () => {
 
   const getDetailData = async () => {
     try {
-      const response = await axios.get('/data/detailData.json');
+      const response = await axios.get(
+        `http://10.58.52.221:3000/product/productdetails/${productId}`,
+      );
       setDetailData(response.data.data.allDetails[0]);
       setReviewData(response.data.data.allReviews);
       setIsLoading(false); // 데이터 로드 완료 시 isLoading을 false로 설정
@@ -45,23 +52,12 @@ const Detail = () => {
 
   return (
     <div className="detail">
-      <div className="container relative">
+      <div className="container relative flex justify-between">
         <div className="productMain relative bg-white w-[53rem] mt-8 mb-[9rem]">
           {isLoading ? (
             <div>Loading...</div>
           ) : (
-            <ProductMainTop
-              id={detailData.id}
-              name={detailData.name}
-              generName={detailData.generName}
-              thumbnailImageUrl={detailData.thumbnailImageUrl}
-              performPlace={detailData.performPlace}
-              startDate={detailData.startDate}
-              endDate={detailData.endDate}
-              startTime={detailData.startTime}
-              runningTime={detailData.runningTime}
-              price={detailData.price}
-            />
+            <ProductMainTop data={detailData} />
           )}
           <div className="productMainBody">
             <div className="productNav pt-4 mb-10 sticky top-0 bg-white">
@@ -83,6 +79,8 @@ const Detail = () => {
               <ProductContents
                 performersInfo={detailData.performersInfo}
                 productDescription={detailData.productDescription}
+                importantNotice={detailData.importantNotice}
+                discountInformation={detailData.discountInformation}
               />
             )}
             {activeNavIndex === 1 && <ProductContents />}
@@ -92,10 +90,9 @@ const Detail = () => {
           </div>
         </div>
         <ProductSide
-          startDate={detailData.startDate}
-          endDate={detailData.endDate}
-          startTime={detailData.startTime}
-          availableTicket={detailData.availableTicket}
+          data={detailData}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
         />
       </div>
     </div>

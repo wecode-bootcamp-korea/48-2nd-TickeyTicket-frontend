@@ -8,7 +8,6 @@ import EventCard from '../components/Categories/EventCard';
 import BenefitCard from '../components/Categories/BenefitCard';
 import ButtonMap from '../components/Map/ButtonMap';
 import { getLocationAndFetchData } from '../utils/getLocationAndFetchData';
-// import { getLocationAndFetchData } from '../utils/getLocationAndFetchData';
 
 const Main = () => {
   const [mainData, setMainData] = useState([]);
@@ -24,7 +23,7 @@ const Main = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://10.58.52.170:3000/main?lat=${myLocation.lat}&lng=${myLocation.lng}`,
+        `http://10.58.52.221:3000/main?lat=${myLocation.lat}&lng=${myLocation.lng}`,
       );
       setMainData(response.data.data);
       setIsLoading(false);
