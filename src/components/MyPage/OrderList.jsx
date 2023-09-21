@@ -1,11 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReviewModal from './ReviewModal';
+import axios from 'axios';
 
 export default function OrderList() {
   const [openModal, setOpenModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState({});
+
   const handleOpenPost = () => {
     setOpenModal(true);
   };
+
+  const Token = localStorage.getItem('token');
+
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        `http://10.58.52.58:3000/mypage/bookinglist`,
+        {
+          headers: {
+            Authorization: `${Token}`,
+          },
+        },
+      );
+      setData(response.data.data);
+      setIsLoading(false);
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className=" w-[900px] relative block">
@@ -13,10 +46,11 @@ export default function OrderList() {
       <div className="mt-10">
         <table className=" border-t-[1px] w-full border-collapse table-fixed">
           <colgroup>
-            <col className="w-5/12" />
+            <col className="w-4/12" />
             <col className="w-2/12" />
             <col className="w-2/12" />
-            <col className="w-3/12" />
+            <col className="w-2/12" />
+            <col className="w-2/12" />
           </colgroup>
           <thead>
             <tr>

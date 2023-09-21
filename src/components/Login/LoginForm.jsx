@@ -22,7 +22,7 @@ export default function LoginForm() {
   const submitLogin = event => {
     event.preventDefault();
     axios
-      .post('http://10.58.52.140:3000/user-router/signin', {
+      .post('http://10.58.52.58:3000/user-router/signin', {
         email: email,
         password: password,
       })
@@ -30,7 +30,7 @@ export default function LoginForm() {
       .then(data => {
         if (data) {
           alert('로그인이 완료 되었습니다.');
-          localStorage.setItem('token', data.accessToken);
+          localStorage.setItem('token', data.data.accessToken);
           navigate('/');
         }
       })

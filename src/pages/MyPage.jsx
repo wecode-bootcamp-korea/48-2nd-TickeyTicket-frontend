@@ -11,7 +11,8 @@ export default function MyPage() {
       <div className="w-full max-w-[1280px] mx-auto box-border">
         <div className="flex w-full justify-between mx-5 pt-12 pb-28">
           <MyPageNav />
-          <HostTicketList />
+          {/* <HostTicketList /> */}
+          <OrderList />
           <div />
         </div>
       </div>

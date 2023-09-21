@@ -1,10 +1,11 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import AddressModal from './AddressModal';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { uploadImage } from '../../api/uploader';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const OPTIONS = [
   {
@@ -51,6 +52,7 @@ export default function PostFormSection() {
   const [placeName, setPlaceName] = useState('');
   const [placeX, setPlaceX] = useState(126.570667);
   const [placeY, setPlaceY] = useState(33.450701);
+  const [imgUrl, setImgUrl] = useState({});
   const [addressDetail, setAddressDetail] = useState('');
   const [files, setFiles] = useState([
     null,
@@ -66,6 +68,17 @@ export default function PostFormSection() {
   const [endDate, setEndDate] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState();
+  const [tk, setTk] = useState('');
+
+  const Token = localStorage.getItem('token');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!Token) {
+      navigate('/login');
+    }
+  }, [Token, navigate]);
+
   function getDatesStartToEnd(startDate, endDate) {
     if (!(startDate instanceof Date && endDate instanceof Date)) {
       console.log('Not Date Object');
@@ -114,25 +127,37 @@ export default function PostFormSection() {
   async function addNewPost(product, image) {
     const requestData = {
       ...product,
-      image,
+      thumbnailImageUrl: imgUrl[0],
+      registrationImageUrl: imgUrl[1],
+      actorImageUrl: [imgUrl[2], imgUrl[3], imgUrl[4], imgUrl[5], imgUrl[6]],
+      startDate,
+      placeName,
+      addressDetail,
+      address,
+      coordinateX: placeX,
+      coordinateY: placeY,
     };
     await axios
-      .post('/registerproduct', requestData)
+      .post('http://10.58.52.77:3000/registerproduct', requestData, {
+        headers: {
+          authorization: `${Token}`,
+        },
+      })
       .then(res => res)
       .catch(error => {
         console.error('Error adding product:', error);
       });
   }
 
-  const handleAddNewPost = (e, product, image) => {
-    e.preventDefault();
+  const handleAddNewPost = (product, image) => {
     setIsUploading(true);
     uploadImage(files)
       .then(url => {
         console.log(url);
+        setImgUrl(url);
       })
       .finally(() => setIsUploading(false));
-    addNewPost(product, image);
+    addNewPost(product);
   };
 
   const handleCategory = id => {
@@ -147,7 +172,7 @@ export default function PostFormSection() {
   );
 
   return (
-    <>
+    <div>
       <div className="my-5">
         <div className="block pb-3 text-base">
           어떤 공연을 만들고 싶으신가요?
@@ -336,7 +361,7 @@ export default function PostFormSection() {
           type="text"
           name="performerName"
           value={product.performerName ?? ''}
-          placeholder="상세 주소를 입력해주세요.(선택)"
+          placeholder="입력해주세요.(선택)"
           // required
           onChange={handleChange}
         />
@@ -345,7 +370,7 @@ export default function PostFormSection() {
           type="text"
           name="performerDescription"
           value={product.performerDescription ?? ''}
-          placeholder="상세 주소를 입력해주세요.(선택)"
+          placeholder="입력해주세요.(선택)"
           // required
           onChange={handleChange}
         />
@@ -438,6 +463,6 @@ export default function PostFormSection() {
       >
         공연 등록하기
       </button>
-    </>
+    </div>
   );
 }
