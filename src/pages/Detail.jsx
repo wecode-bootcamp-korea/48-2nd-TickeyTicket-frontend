@@ -30,7 +30,7 @@ const Detail = () => {
   const getDetailData = async () => {
     try {
       const response = await axios.get(
-        `http://10.58.52.221:3000/product/productdetails/${productId}`,
+        `http://10.58.52.77:3000/product/productdetails/${productId}`,
       );
       setDetailData(response.data.data.allDetails[0]);
       setReviewData(response.data.data.allReviews);

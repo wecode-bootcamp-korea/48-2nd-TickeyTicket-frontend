@@ -3,10 +3,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { NAV_BAR } from '../../utils/constants';
 
 export default function Nav() {
+  const navigate = useNavigate();
   const handleClick = el => {
     navigate(el.url);
   };
-  const navigate = useNavigate();
+
   const { pathname, search } = useLocation();
 
   const currentPath = pathname + search;

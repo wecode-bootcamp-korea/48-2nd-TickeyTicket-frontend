@@ -1,30 +1,54 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { VscHeart, VscHeartFilled } from 'react-icons/vsc';
+import { getLocationAndFetchData } from '../../utils/getLocationAndFetchData';
 
 const MainCard = ({ data }) => {
   const [mainCardData, setMainCardData] = useState(data);
   const navigate = useNavigate();
+  const [myLocation, setMyLocation] = useState({
+    lat: null,
+    lng: null,
+    errMsg: null,
+  });
 
   const isToggled = async item => {
     try {
-      const token = localStorage.getItem('Token');
+      const Token = localStorage.getItem('token');
 
-      if (!token) {
+      if (!Token) {
         navigate('/login');
         return;
       }
 
-      await axios.post(`http://10.58.52.221:3000/wishlist/${item.productId}`);
+      await axios.post(
+        `http://10.58.52.77:3000/wishlist/user-wishlist/${item.productId}`,
+        {},
+        {
+          headers: {
+            authorization: `${Token}`,
+          },
+        },
+      );
       const response = await axios.get(
-        'http://10.58.52.221:3000/wishlist/user-wishlist',
+        `http://10.58.52.77:3000/main?lat=${myLocation.lat}&lng=${myLocation.lng}`,
       );
       setMainCardData(response.data);
     } catch (error) {
       console.error('Error:', error);
     }
   };
+  useEffect(() => {
+    getLocationAndFetchData(setMyLocation);
+  }, []);
+
+  useEffect(() => {
+    if (!myLocation.lat) return;
+
+    isToggled();
+  }, [myLocation.lat, myLocation.lng]);
+
   if (data.length <= 0) return <div>공연을 준비중입니다.</div>;
 
   return mainCardData.map(data => (
@@ -33,8 +57,11 @@ const MainCard = ({ data }) => {
       key={data.id}
     >
       <div
-        className="showImg w-full h-52 rounded-t-xl bg-cover bg-no-repeat bg-center"
-        style={{ background: `url(${data.thumbnailImageUrl})` }}
+        className="showImg w-full h-52 rounded-t-xl bg-no-repeat bg-center"
+        style={{
+          backgroundImage: `url(${data.thumbnailImageUrl})`,
+          backgroundSize: 'contain',
+        }}
         onClick={() => {
           navigate(`/detail/${data.productId}`);
         }}

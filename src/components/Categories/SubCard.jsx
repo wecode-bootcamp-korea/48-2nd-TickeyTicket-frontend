@@ -4,10 +4,10 @@ import { VscHeart, VscHeartFilled } from 'react-icons/vsc';
 
 const Card = () => {
   const [subCardData, setSubCardData] = useState([]);
-  const token = localStorage.getItem('token');
+  const Token = localStorage.getItem('token');
 
   const isToggled = () => {
-    if (!token) {
+    if (!Token) {
       window.location.href = '/login';
     } else {
       axios.post('/data/mainCard.json').then(() => {

@@ -23,7 +23,7 @@ const Main = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://10.58.52.221:3000/main?lat=${myLocation.lat}&lng=${myLocation.lng}`,
+        `http://10.58.52.77:3000/main?lat=${myLocation.lat}&lng=${myLocation.lng}`,
       );
       setMainData(response.data.data);
       setIsLoading(false);
@@ -32,6 +32,7 @@ const Main = () => {
       setIsLoading(false);
     }
   };
+  console.log(mainData);
 
   useEffect(() => {
     getLocationAndFetchData(setMyLocation);
