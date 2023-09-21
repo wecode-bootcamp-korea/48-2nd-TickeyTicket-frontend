@@ -18,20 +18,23 @@ export default function KaKaoLogin() {
       .then(res => res.json())
       .then(data => {
         if (data.access_token) {
-          localStorage.setItem('token', data.access_token);
-          console.log(data.access_token);
+          postKakaoToken(data.access_token);
         } else {
           navigate('/');
         }
       });
   };
 
-  const postKakaoToken = () => {
+  const postKakaoToken = token => {
     axios
-      .post('http://10.58.52.246:3000/kakao-router/kakaologin', {
-        kakaoAccessToken: localStorage.getItem('token'),
+      .post('http://10.58.52.113:3000/kakao-router/kakaologin', {
+        kakaoAccessToken: token,
       })
-      .then(res => res)
+      .then(res => res.json())
+      .then(
+        result => localStorage.setItem('token', result.accessToken),
+        navigate('/'),
+      )
       .catch(err => {
         console.log(err);
       });
@@ -40,7 +43,7 @@ export default function KaKaoLogin() {
   useEffect(() => {
     if (!location.search) return;
     getKakaoToken();
-    postKakaoToken();
+    // postKakaoToken();
   }, []);
 
   return <div>로딩중...</div>;

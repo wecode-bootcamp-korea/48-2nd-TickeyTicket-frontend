@@ -1,53 +1,47 @@
+import axios from 'axios';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [getToken, setGetToken] = useState('');
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
   const navigate = useNavigate();
 
-  // 이메일 입력받는 함수
   const changeEmail = event => {
     setEmail(event.target.value);
   };
 
-  // 비밀번호 입력받는 함수
   const changePassword = event => {
     setPassword(event.target.value);
   };
 
   const submitLogin = event => {
     event.preventDefault();
-
-    // // setPersistence => 로그인 시 세션스토리지에 유저 정보 저장
-    // setPersistence(authService, browserSessionPersistence)
-    //   .then(() =>
-    //     signInWithEmailAndPassword(authService, auth.email, auth.password),
-    //   )
-    //   .then(() => {
-    //     auth.setEmail('');
-    //     auth.setPassword('');
-
-    //     if (state) {
-    //       navigate(state);
-    //     } else {
-    //       navigate('/', { replace: true });
-    //     }
-    //   })
-    //   .catch(err => {
-    //     if (err.message.includes('user-not-found')) {
-    //       alert('회원을 찾을 수 없습니다. 회원가입을 먼저 진행해 주세요.');
-    //       navigate('/signup', { state });
-    //     }
-
-    //     if (err.message.includes('wrong-password')) {
-    //       alert('잘못된 비밀번호 입니다.');
-    //       auth.setPassword('');
-    //     }
-    //   });
+    axios
+      .post('http://10.58.52.140:3000/user-router/signin', {
+        email: email,
+        password: password,
+      })
+      .then(res => res)
+      .then(data => {
+        if (data) {
+          alert('로그인이 완료 되었습니다.');
+          localStorage.setItem('token', data.accessToken);
+          navigate('/');
+        }
+      })
+      .catch(err => {
+        if (err.message.includes('INVALID_USER')) {
+          alert(
+            '회원을 찾을 수 없습니다. 아이디 및 비밀번호를 확인해주시고 회원가입을 하지 않았다면 회원가입을 먼저 진행해 주세요.',
+          );
+          navigate('/');
+        }
+      });
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import AddressModal from './AddressModal';
 import DatePicker from 'react-datepicker';
@@ -6,13 +6,43 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { uploadImage } from '../../api/uploader';
 import axios from 'axios';
 
-const options = [
-  '선택해주세요',
-  'naver.com',
-  'daum.net',
-  'gmail.com',
-  'hanmail.net',
-  '직접 입력',
+const OPTIONS = [
+  {
+    id: 3,
+    tabName: '뮤지컬',
+  },
+  {
+    id: 4,
+    tabName: '연극',
+  },
+  {
+    id: 5,
+    tabName: '클래식',
+  },
+  {
+    id: 6,
+    tabName: '무용',
+  },
+  {
+    id: 7,
+    tabName: '전시',
+  },
+  {
+    id: 8,
+    tabName: '행사',
+  },
+  {
+    id: 9,
+    tabName: '음악',
+  },
+  {
+    id: 10,
+    tabName: '코미디',
+  },
+  {
+    id: 11,
+    tabName: '버스킹',
+  },
 ];
 
 export default function PostFormSection() {
@@ -32,12 +62,10 @@ export default function PostFormSection() {
     null,
   ]);
   const [modal, setModal] = useState(false);
-  // const [dateRange, setDateRange] = useState([]);
-  const [maxDate, setMaxDate] = useState();
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
-
+  const [selectedCategory, setSelectedCategory] = useState();
   function getDatesStartToEnd(startDate, endDate) {
     if (!(startDate instanceof Date && endDate instanceof Date)) {
       console.log('Not Date Object');
@@ -63,9 +91,6 @@ export default function PostFormSection() {
   }
 
   const dateRange = getDatesStartToEnd(startDate, endDate);
-
-  console.log(dateRange);
-
   const setChangeDate = dates => {
     const [start, end] = dates;
     setStartDate(start);
@@ -86,38 +111,21 @@ export default function PostFormSection() {
     setProduct(product => ({ ...product, [name]: value }));
   };
 
-  // const handleSubmit = e => {
-  //   e.preventDefault();
-  //   setIsUploading(true);
-  //   uploadImage(files)
-  //     .then(url => {
-  //       console.log(url);
-  //     })
-  //     .finally(() => setIsUploading(false));
-  // };
-
   async function addNewPost(product, image) {
-    try {
-      const requestData = {
-        ...product,
-        image,
-      };
-      const response = await axios.post('', requestData);
-
-      if (response.status === 201) {
-        console.log('Product added successfully');
-        // 성공적으로 처리한 후 추가 작업을 수행할 수 있습니다.
-      } else {
-        console.error('Failed to add product');
-        // 실패한 경우에 대한 처리를 추가하세요.
-      }
-    } catch (error) {
-      console.error('Error adding product:', error);
-      // 에러 처리 로직을 추가할 수 있습니다.
-    }
+    const requestData = {
+      ...product,
+      image,
+    };
+    await axios
+      .post('/registerproduct', requestData)
+      .then(res => res)
+      .catch(error => {
+        console.error('Error adding product:', error);
+      });
   }
 
-  const handleAddNewPost = (product, image) => {
+  const handleAddNewPost = (e, product, image) => {
+    e.preventDefault();
     setIsUploading(true);
     uploadImage(files)
       .then(url => {
@@ -127,22 +135,30 @@ export default function PostFormSection() {
     addNewPost(product, image);
   };
 
+  const handleCategory = id => {
+    setSelectedCategory(id);
+  };
+
+  const onChangeAddressDetail = useCallback(
+    e => {
+      setAddressDetail(e.target.value);
+    },
+    [setAddressDetail],
+  );
+
   return (
-    <form className="flex flex-col px-12" onSubmit={handleAddNewPost}>
+    <>
       <div className="my-5">
         <div className="block pb-3 text-base">
           어떤 공연을 만들고 싶으신가요?
         </div>
-        <select className="text-[15px] rounded box-border block h-10 w-full px-[15px] leading-10 border border-zinc-400">
-          {options.map((option, index) => (
-            <option
-              value={product.category ?? ''}
-              // required
-              onChange={handleChange}
-              key={index}
-              name="category"
-            >
-              {option}
+        <select
+          onChange={e => handleCategory(e.target.value)}
+          className="text-[15px] rounded box-border block h-10 w-full px-[15px] leading-10 border border-zinc-400"
+        >
+          {OPTIONS.map((option, index) => (
+            <option value={option.id} key={index} name="categoryGenresId">
+              {option.tabName}
             </option>
           ))}
         </select>
@@ -152,8 +168,8 @@ export default function PostFormSection() {
         <input
           className="text-[15px] rounded box-border block h-10 w-full px-[15px] leading-10 border border-zinc-400"
           type="text"
-          name="title"
-          value={product.title ?? ''}
+          name="name"
+          value={product.name ?? ''}
           placeholder="공연명"
           // required
           onChange={handleChange}
@@ -182,9 +198,9 @@ export default function PostFormSection() {
         <input
           className="text-[15px] rounded box-border block h-10 w-full px-[15px] leading-10 border border-zinc-400"
           type="text"
-          name="runningTime"
-          value={product.runningTime ?? ''}
-          placeholder="공연 러닝타임"
+          name="startTime"
+          value={product.startTime ?? ''}
+          placeholder="공연 시작 시간"
           // required
           onChange={handleChange}
         />
@@ -197,7 +213,7 @@ export default function PostFormSection() {
           type="text"
           name="price"
           value={product.price ?? ''}
-          placeholder="공연 러닝타임"
+          placeholder="공연 가격"
           // required
           onChange={handleChange}
         />
@@ -207,13 +223,9 @@ export default function PostFormSection() {
         <div className="text-[15px] mb-2 rounded box-border block h-10 w-full px-[15px] leading-10 border border-zinc-400">
           <DatePicker
             className="w-full h-full"
-            // selected={startDate}
             onChange={setChangeDate}
             startDate={startDate}
             endDate={endDate}
-            // minDate={new Date()}
-            // maxDate={maxDate}
-            // dateFormat="yyyy/MM/dd"
             selectsRange
             withPortal
             shouldCloseOnSelect={false}
@@ -227,9 +239,9 @@ export default function PostFormSection() {
           type="text"
           name="place"
           value={placeName ?? ''}
-          placeholder="상세 주소를 입력해주세요.(선택)"
+          placeholder=""
           // required
-          onChange={handleChange}
+          // onChange={handleChange}
         />
         <div className="flex mb-2">
           <input
@@ -238,7 +250,7 @@ export default function PostFormSection() {
             name="address"
             value={address ?? ''}
             // required
-            onChange={handleChange}
+            // onChange={handleChange}
           />
           <button
             className="flex-[0_0_auto] w-[100px] bg-brand border-brand text-white rounded h-10"
@@ -256,7 +268,7 @@ export default function PostFormSection() {
           value={addressDetail ?? ''}
           placeholder="상세 주소를 입력해주세요.(선택)"
           // required
-          onChange={handleChange}
+          onChange={onChangeAddressDetail}
         />
         <div className="flex first-letter:w-full h-[150px] ">
           <Map
@@ -322,8 +334,8 @@ export default function PostFormSection() {
         <input
           className="text-[15px] mb-2 rounded box-border block h-10 w-full px-[15px] leading-10 border border-zinc-400"
           type="text"
-          name="addressDetail"
-          value={addressDetail ?? ''}
+          name="performerName"
+          value={product.performerName ?? ''}
           placeholder="상세 주소를 입력해주세요.(선택)"
           // required
           onChange={handleChange}
@@ -331,8 +343,8 @@ export default function PostFormSection() {
         <input
           className="text-[15px] mb-2 rounded box-border block h-10 w-full px-[15px] leading-10 border border-zinc-400"
           type="text"
-          name="addressDetail"
-          value={addressDetail ?? ''}
+          name="performerDescription"
+          value={product.performerDescription ?? ''}
           placeholder="상세 주소를 입력해주세요.(선택)"
           // required
           onChange={handleChange}
@@ -373,9 +385,9 @@ export default function PostFormSection() {
         <input
           className="text-[15px] rounded box-border block h-10 w-full px-[15px] leading-10 border border-zinc-400"
           type="text"
-          name="price"
-          value={product.price ?? ''}
-          placeholder="공연 러닝타임"
+          name="importantNotice"
+          value={product.importantNotice ?? ''}
+          placeholder="공연 공지사항"
           // required
           onChange={handleChange}
         />
@@ -387,8 +399,8 @@ export default function PostFormSection() {
         <input
           className="text-[15px] rounded box-border block h-10 w-full px-[15px] leading-10 border border-zinc-400"
           type="text"
-          name="price"
-          value={product.price ?? ''}
+          name="discountInformation"
+          value={product.discountInformation ?? ''}
           placeholder="공연 러닝타임"
           // required
           onChange={handleChange}
@@ -401,14 +413,14 @@ export default function PostFormSection() {
         <input
           className="text-[15px] rounded box-border block h-10 w-full px-[15px] leading-10 border border-zinc-400"
           type="text"
-          name="price"
-          value={product.price ?? ''}
+          name="productDescription"
+          value={product.productDescription ?? ''}
           placeholder="공연 러닝타임"
           // required
           onChange={handleChange}
         />
       </div>
-      {modal === true ? (
+      {modal ? (
         <AddressModal
           modal={modal}
           onClose={() => {
@@ -422,10 +434,10 @@ export default function PostFormSection() {
       ) : null}
       <button
         className="w-full mt-8 bg-brand border-brand text-white py-3 rounded cursor-pointer"
-        onClick={handleAddNewPost}
+        onClick={() => handleAddNewPost()}
       >
         공연 등록하기
       </button>
-    </form>
+    </>
   );
 }
