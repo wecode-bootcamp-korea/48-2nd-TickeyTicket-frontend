@@ -1,97 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import './PaySubmit.css';
 
-const PaySubmit = () => {
-  const token = localStorage.getItem('token');
-  const [searchParams, setSearchParams] = useSearchParams();
-  const bookingId = searchParams.get('bookingId'); // bookingId를 쿼리 매개변수에서 가져옵니다.
+const PaySubmit = ({ nickName, data }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
-  const changePhoneNumber = event => {
-    setPhoneNumber(event.target.value);
-  };
-
   const [isRadioSelected, setIsRadioSelected] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const [name, setName] = useState('');
-  const [userInfo, setUserInfo] = useState({
-    totalPrice: '',
-    bookingId: '',
-  });
-
-  useEffect(() => {
-    axios
-      .get(`http://example.com/api/endpoint?bookingId=${bookingId}`, {
-        // 실제 엔드포인트 URL로 변경해야 합니다.
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(response => {
-        const data = response.data;
-        setUserInfo({
-          totalPrice: data.totalPrice,
-          bookingId: '',
-        });
-      })
-      .catch(error => {
-        console.error('API 호출 오류:', error);
-      });
-  }, [bookingId, token]); // bookingId와 token을 의존성 배열에 추가합니다.
-
-  useEffect(() => {
-    setIsActive(phoneNumber.length === 11 && isRadioSelected);
-  }, [phoneNumber, isRadioSelected]);
-
-  useEffect(() => {
-    const userName = localStorage.getItem('name');
-    if (userName) {
-      setName(userName);
-    }
-  }, []);
-
-  const handleSubmit = event => {
-    event.preventDefault();
-
-    const isValidPhoneNumber =
-      phoneNumber.length === 11 || !/^\d+$/.test(phoneNumber);
-
-    if (!phoneNumber.trim()) {
-      alert('전화번호를 확인하세요.');
-      return;
-    }
-    if (isValidPhoneNumber) {
-      alert('전화번호가 정상 등록되었습니다.');
-    } else {
-      alert('전화번호를 확인하세요.');
-      return;
-    }
-  };
-
-  const handlePaymentSuccess = async () => {
-    try {
-      const serverUrl = 'http://example.com/api/payment/success'; // 서버의 엔드포인트 URL
-
-      const paymentSuccessData = {
-        bookingId: bookingId,
-        paymentStatus: 'success',
-        // 기타 필요한 정보
-      };
-
-      const response = await axios.post(serverUrl, paymentSuccessData, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      console.log('서버 응답:', response.data);
-    } catch (error) {
-      console.error('서버 요청 오류:', error);
-    }
-  };
 
   const [paymentInfo, setPaymentInfo] = useState({
     next_redirect_pc_url: '',
@@ -101,10 +15,12 @@ const PaySubmit = () => {
       cid: 'TC0ONETIME',
       partner_order_id: 'partner_order_id',
       partner_user_id: 'partner_user_id',
-      item_name: '뮤지컬 문스토리',
+      //item_name: `${data.name}`,
+      item_name: 'a',
       quantity: 1,
+      //total_amount: `${data.totalPrice}`,
       total_amount: 10000,
-      vat_amount: 1000,
+      vat_amount: 0,
       tax_free_amount: 0,
       approval_url: 'http://localhost:3000/mypage',
       fail_url: 'http://localhost:3000/payment',
@@ -113,8 +29,13 @@ const PaySubmit = () => {
   });
 
   const handleKakaoPayClick = () => {
+    // if (data && data.name && data.totalPrice) {
     window.location.href = paymentInfo.next_redirect_pc_url;
+    // } else {
+    //   alert('Product information is missing.');
+    // }
   };
+
   useEffect(() => {
     const fetchPaymentInfo = async () => {
       try {
@@ -143,6 +64,37 @@ const PaySubmit = () => {
     fetchPaymentInfo();
   }, []);
 
+  useEffect(() => {
+    setIsActive(phoneNumber.length === 11 && isRadioSelected);
+  }, [phoneNumber, isRadioSelected]);
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+
+    if (
+      !phoneNumber.trim() ||
+      !/^\d+$/.test(phoneNumber) ||
+      phoneNumber.length !== 11
+    ) {
+      alert('올바른 전화번호를 입력하세요.');
+      return;
+    }
+
+    try {
+      const serverUrl = 'http://10.58.52.206:3000/payment/handle-payment';
+      const response = await axios.post(serverUrl, {
+        paymentInfo,
+        statusCode: '200',
+      });
+      console.log('서버 응답:', response.data);
+    } catch (error) {
+      console.error('서버 요청 오류:', error);
+    }
+  };
+
+  const changePhoneNumber = event => {
+    setPhoneNumber(event.target.value);
+  };
   return (
     <div className="paySubmit flex flex-col justify-between flex-1 pl-7 p-5 pt-0">
       <div>
@@ -153,7 +105,7 @@ const PaySubmit = () => {
               <span>이름</span>
             </div>
             <div className="w-[20%] p-3">
-              <span>{name}</span>
+              <span>{nickName}</span>
             </div>
             <div className="inputTitle w-[20%] p-3 font-bold bg-zinc-50">
               <span>휴대폰 번호</span>
