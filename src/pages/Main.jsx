@@ -23,7 +23,7 @@ const Main = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://10.58.52.77:3000/main?lat=${myLocation.lat}&lng=${myLocation.lng}`,
+        `http://10.58.52.58:3000/main?lat=${myLocation.lat}&lng=${myLocation.lng}`,
       );
       setMainData(response.data.data);
       setIsLoading(false);
@@ -32,7 +32,6 @@ const Main = () => {
       setIsLoading(false);
     }
   };
-  console.log(mainData);
 
   useEffect(() => {
     getLocationAndFetchData(setMyLocation);
@@ -52,8 +51,10 @@ const Main = () => {
 
   // genreId를 기준으로 데이터를 묶어주는 작업
   const genreArrays = [];
+
   for (let index = 0; index < 9; index++) {
     const genreData = mainData.filter(item => item.genreId === index + 1);
+
     genreArrays.push(genreData);
   }
 

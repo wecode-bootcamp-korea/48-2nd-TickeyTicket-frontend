@@ -138,7 +138,7 @@ export default function PostFormSection() {
       coordinateY: placeY,
     };
     await axios
-      .post('http://10.58.52.77:3000/registerproduct', requestData, {
+      .post('http://10.58.52.58:3000/registerproduct', requestData, {
         headers: {
           authorization: `${Token}`,
         },

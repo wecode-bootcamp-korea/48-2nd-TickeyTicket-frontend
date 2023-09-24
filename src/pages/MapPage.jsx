@@ -22,7 +22,7 @@ const MapPage = () => {
   const [markersArray, setMarkersArray] = useState([]);
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://10.58.52.221:3000/main/map');
+      const response = await axios.get('http://10.58.52.58:3000/main/map');
       setMarkersArray(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);

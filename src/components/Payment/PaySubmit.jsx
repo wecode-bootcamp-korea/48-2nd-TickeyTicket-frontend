@@ -81,7 +81,7 @@ const PaySubmit = ({ nickName, data }) => {
     }
 
     try {
-      const serverUrl = 'http://10.58.52.206:3000/payment/handle-payment';
+      const serverUrl = 'http://10.58.52.58:3000/payment/handle-payment';
       const response = await axios.post(serverUrl, {
         paymentInfo,
         statusCode: '200',

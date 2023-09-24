@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useSearchParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 // import { LuSlidersHorizontal } from 'react-icons/lu';
-import MainCard from '../components/Categories/MainCard';
+import SubCard from '../components/Categories/SubCard';
 import { getLocationAndFetchData } from '../utils/getLocationAndFetchData';
 import { NAV_BAR } from '../utils/constants';
 
@@ -28,6 +28,18 @@ const Sub = () => {
 
   const genreId = searchParams.get('genreId');
 
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        `http://10.58.52.58:3000/main?lat=${myLocation.lat}&lng=${myLocation.lng}&genreId=${genreId}`,
+      );
+      setSubData(response.data.data);
+      console.log(response);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
   const handleClick = sortName => {
     setClicked(sortName);
   };
@@ -35,7 +47,7 @@ const Sub = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://10.58.52.77:3000/main?lat=${myLocation.lat}&lng=${myLocation.lng}&genreId=${genreId}`,
+        `http://10.58.52.58:3000/main?lat=${myLocation.lat}&lng=${myLocation.lng}&genreId=${genreId}`,
       );
       setSubData(response.data.data);
     } catch (error) {
@@ -83,8 +95,8 @@ const Sub = () => {
             </div>
             <div className="cardContainer w-full">
               <div className="cardSlideBox">
-                <div className="cards flex flex-wrap gap-10">
-                  <MainCard data={subData} />
+                <div className="cards flex flex-wrap gap-5">
+                  <SubCard subData={subData} />
                 </div>
               </div>
             </div>

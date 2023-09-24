@@ -9,7 +9,7 @@ const Payment = () => {
   const [nickName, setNickName] = useState('');
   // const [showData, setShowData] = useState(null);
   const [bookingsInfo, setBookingsInfo] = useState({});
-  const apiUrl = `http://10.58.52.77:3000/reservation/getReservation`;
+  const apiUrl = `http://10.58.52.58:3000/reservation/getReservation`;
 
   useEffect(() => {
     // const getKaKaoUserData = async () => {

@@ -15,16 +15,15 @@ const ProductSide = ({ data, setSelectedDate, selectedDate }) => {
       }
 
       await axios.post(
-        `http://10.58.52.77:3000/reservation/createReservation`,
+        `http://10.58.52.58:3000/reservation/createReservation`,
         {
           productName: data.productName,
           space: data.place,
-          startDate: handleDateSelect,
+          startDate: selectedDate,
           startTime: data.startTime,
           thumbnailImageUrl: data.thumbnailImageUrl,
           price: data.price,
         },
-        {},
       );
 
       navigate(`/payment`);

@@ -1,4 +1,5 @@
 export const getLocationAndFetchData = setLocation => {
+  console.log(Boolean(navigator.geolocation));
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       position => {

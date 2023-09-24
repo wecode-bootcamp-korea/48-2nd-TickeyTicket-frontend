@@ -36,7 +36,7 @@ export default function SignUpForm() {
 
     // 로그인 인증상태를 브라우저 세션 동안 유지하도록 하고 성공 시 넘어감
     axios
-      .post('http://10.58.52.246:3000/user-router/signup', {
+      .post('http://10.58.52.58:3000/user-router/signup', {
         userName: name,
         nickName: nickname,
         email: email,

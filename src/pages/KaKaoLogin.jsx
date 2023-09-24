@@ -28,7 +28,7 @@ export default function KaKaoLogin() {
 
   const postKakaoToken = token => {
     axios
-      .post('http://10.58.52.113:3000/kakao-router/kakaologin', {
+      .post('http://10.58.52.58:3000/kakao-router/kakaologin', {
         kakaoAccessToken: token,
       })
       .then(res => res.json())
